@@ -2,6 +2,14 @@ var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var expressHbs = require('express-handlebars');
+var path = require('path');
+
+app.engine('hbs', expressHbs({extname:'hbs', defaultLayout:'main'}));
+app.set('view engine', 'hbs');
+
+var favicon = require('serve-favicon');
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 
 var db = require('./config/db');
 
@@ -121,7 +129,9 @@ router.route('/api/bears/:bear_id')
 
 // home page route (http://localhost:8080)
 router.get('/', function(req, res) {
-	res.send('im the home page!');	
+	//res.send('im the home page!');
+	var data = {title: 'Gorilla'};
+	res.render('index', data);
 });
 
 // about page route (http://localhost:8080/about)
@@ -135,4 +145,3 @@ app.use('/', router);
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-console.log('Magic happens on port ' + port);
