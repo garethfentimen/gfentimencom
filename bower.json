@@ -6,6 +6,7 @@
         "font-awesome": "latest",
         "animate.css": "latest",
         "angular": "latest",
-		"path":"latest"
+        "restangular": "latest",
+		"path": "latest"
     }
 }
