@@ -26,11 +26,11 @@ var router = require('./app/APIRoutes');
 
 
 
-// home page route (http://localhost:8080)
+// home page route (http://localhost:3000)
 router.get('/', function(req, res) {
 	//res.send('im the home page!');
 	var data = { title: 'Gorilla' };
-	res.render('home ', data);
+	res.render('home', data);
 });
 
 router.get('/home', function(req, res) {
@@ -41,7 +41,7 @@ router.get('/home', function(req, res) {
 
 router.get('/blog', function(req, res) {
 	var blogReader = require('./app/AtomReader');
-	console.log(blogReader.GetMostRecentBlog());
+	console.log(blogReader);
 	var blog = blogReader.GetMostRecentBlog();
 	console.log(blog);
 	res.render('blog', blog);
