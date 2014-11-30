@@ -2,7 +2,7 @@ angular.module('app', ['ngAnimate'])
 
 .controller('blogContent', ['$scope', 'restangular', function($scope, restangular) {
 	
-	$scope.blogContent = "";
+
 }])
 
 .config(function($routeProvider, $locationProvider) {
@@ -15,4 +15,4 @@ angular.module('app', ['ngAnimate'])
 		{
 			templateUrl: 'blog.html',
 			controller: 'blogContent'
-		})
+		});

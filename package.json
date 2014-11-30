@@ -5,6 +5,7 @@
   "dependencies": {
      "express": "latest",
 	 "mongoose": "latest",
+   "mongoose-auto-increment": "latest",
 	 "body-parser": "latest",
 	 "express-handlebars":"latest",
 	 "serve-favicon":"latest",

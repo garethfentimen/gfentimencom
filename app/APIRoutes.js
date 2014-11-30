@@ -2,6 +2,7 @@
 // =============================================================================
 var express = require('express'); 
 var router = express.Router(); 				// get an instance of the express Router
+var blogReader = require('./blogReader');
 
 router.use(function(req, res, next) {
 	// do logging
@@ -13,6 +14,22 @@ router.use(function(req, res, next) {
 router.get('/api', function(req, res) {
 	res.json({ message: 'hooray! welcome to our api!' });	
 });
+
+router.route('/api/blog')
+	.get(function() {
+		console.log("getting getting most recent blog");
+		var blog = blogReader.GetMostRecentBlog(function(blog) {
+			res.json(blog);
+		});	
+	})
+
+router.route('/api/blog/:blog_id')
+	.get(function(id) {
+		console.log("getting blog" + id);
+		var blog = blogReader.GetBlog(id, function(blog) {
+			//res.render('blog', blog);
+		});	
+	})
 
 router.route('/api/bears')
 
