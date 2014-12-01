@@ -4,7 +4,7 @@
     "dependencies": {
         "bootstrap": "latest",
         "font-awesome": "latest",
-        "animate.css": "latest",
+        "angular-animate": "latest",
         "angular": "latest",
         "restangular": "latest",
 		"path": "latest"

@@ -1,18 +1,20 @@
-angular.module('app', ['ngAnimate'])
+angular.module('app', ['ngAnimate', 'restangular'])
 
-.controller('blogContent', ['$scope', 'restangular', function($scope, restangular) {
+	.config(function($routeProvider) {
+		
+		$routeProvider.when('/:blogId', 
+			{
+				templateUrl: 'blog.html',
+				controller: 'blogContent'
+			})
+			.when('/', 
+			{
+				templateUrl: 'blog.html',
+				controller: 'blogContent'
+			});
+	})
+
+.controller('blogContent', ['$scope', function($scope, Restangular) {
 	
-
+	$scope.blogContent = "";
 }])
-
-.config(function($routeProvider, $locationProvider) {
-	$routeProvider.when('/Blog/:blogId', 
-		{
-			templateUrl: 'blog.html',
-			controller: 'blogContent'
-		})
-	.when('/Blog/', 
-		{
-			templateUrl: 'blog.html',
-			controller: 'blogContent'
-		});
