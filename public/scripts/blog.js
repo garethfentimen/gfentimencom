@@ -1,18 +1,22 @@
-angular.module('app', ['ngAnimate', 'restangular'])
+angular.module('app', ['ngAnimate', 'restangular', 'ngRoute'])
 
-	.config(function($routeProvider) {
-		
-		$routeProvider.when('/:blogId', 
-			{
-				templateUrl: 'blog.html',
-				controller: 'blogContent'
-			})
-			.when('/', 
-			{
-				templateUrl: 'blog.html',
-				controller: 'blogContent'
-			});
-	})
+.config(function($routeProvider, RestangularProvider) {
+	
+	$routeProvider.when('/:blogId', 
+		{
+			templateUrl: 'views/blog.html',
+			controller: 'blogContent'
+		})
+		.when('/', 
+		{
+			templateUrl: 'views/blog.html',
+			controller: 'blogContent'
+		});
+
+	RestangularProvider.setBaseUrl("api/");
+})
+
+
 
 .controller('blogContent', ['$scope', function($scope, Restangular) {
 	
