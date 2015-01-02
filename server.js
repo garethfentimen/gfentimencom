@@ -26,13 +26,13 @@ var router = require('./app/APIRoutes');
 // home page route (http://localhost:3000)
 router.get('/', function(req, res) {
 	//res.send('im the home page!');
-	var data = { title: 'Gorilla' };
+	var data = { title: 'Gareth Fentimen' };
 	res.render('home', data);
 });
 
 router.get('/home', function(req, res) {
 	//res.send('im the home page!');
-	var data = { title: 'Gorilla' };
+	var data = { title: 'Gareth Fentimen' };
 	res.render('home', data);
 });
 
