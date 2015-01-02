@@ -1,4 +1,4 @@
-angular.module('app', ['ngAnimate', 'restangular', 'ngRoute'])
+angular.module('app', ['ngAnimate', 'restangular', 'ngRoute', 'ngSanitize'])
 
 .config(function($routeProvider, RestangularProvider) {
 	
@@ -13,12 +13,28 @@ angular.module('app', ['ngAnimate', 'restangular', 'ngRoute'])
 			controller: 'blogContent'
 		});
 
-	RestangularProvider.setBaseUrl("api/");
+	RestangularProvider.setBaseUrl("/api");
 })
 
 
 
-.controller('blogContent', ['$scope', function($scope, Restangular) {
+.controller('blogContent', ['$scope', 'Restangular', '$sce', function($scope, Restangular, $sce) {
 	
-	$scope.blogContent = "";
-}])
+	$scope.blogContent = "loading..";
+
+	$scope.loadLatestBlogPost = function() {
+    	console.log("do stuff here");
+    	Restangular.one("blog").get().then(function(result) {
+			if (result == null)
+	    	{
+				console.log("result of call was null", result);
+	    	} else {
+		    	console.log("result of call", result);
+		    	$scope.blogTitle = result.Title;
+		    	$scope.blogContent = $sce.trustAsHtml(result.Content);	
+	    	}
+    	});    	
+  	};
+
+	$scope.loadLatestBlogPost();
+}]);

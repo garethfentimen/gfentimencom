@@ -16,7 +16,7 @@ router.get('/api', function(req, res) {
 });
 
 router.route('/api/blog')
-	.get(function() {
+	.get(function(req, res) {
 		console.log("getting getting most recent blog");
 		var blog = blogReader.GetMostRecentBlog(function(blog) {
 			res.json(blog);
@@ -24,7 +24,7 @@ router.route('/api/blog')
 	})
 
 router.route('/api/blog/:blog_id')
-	.get(function(id) {
+	.get(function(id, res) {
 		console.log("getting blog" + id);
 		var blog = blogReader.GetBlog(id, function(blog) {
 			//res.render('blog', blog);
