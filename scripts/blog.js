@@ -4,12 +4,12 @@ angular.module('app', ['ngAnimate', 'restangular', 'ngRoute', 'ngSanitize'])
 	
 	$routeProvider.when('/:blogId', 
 		{
-			templateUrl: 'views/blog.html',
+			templateUrl: 'public/views/blog.html',
 			controller: 'blogContent'
 		})
 		.when('/', 
 		{
-			templateUrl: 'views/blog.html',
+			templateUrl: 'public/views/blog.html',
 			controller: 'blogContent'
 		});
 
