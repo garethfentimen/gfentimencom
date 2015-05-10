@@ -9,6 +9,7 @@
 	 "body-parser": "latest",
 	 "express-handlebars":"latest",
 	 "serve-favicon":"latest",
-   "feed-read":"latest"
+   "feed-read":"latest",
+   "jasmine-node-karma":"latest"
   }
 }
