@@ -2,7 +2,8 @@
     "name": "gfentimencom",
     "version": "1.0.0",
     "dependencies": {
-        "bootstrap": "latest",
+        "angular-ui-bootstrap-bower": "latest",
+        "bootstrap-css-only":"latest",
         "font-awesome": "latest",
         "angular-animate": "latest",
         "angular-sanitize": "latest",

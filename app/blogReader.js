@@ -44,7 +44,8 @@ var blogReader = {
 
       var blog = {
         Title: mostRecentBlogPost.title,
-        Content: mostRecentBlogPost.content
+        Content: mostRecentBlogPost.content,
+        PublishedOn: mostRecentBlogPost.published
       };
 
       callback(blog);

@@ -14,6 +14,7 @@ module.exports = function(router) {
 	router.get('/blog', function(req, res) {
 		res.render('blog', { scripts: ['libs/lodash/lodash.min.js',
 								'libs/angular/angular.min.js',
+								'libs/angular-ui-bootstrap-bower/ui-bootstrap.min.js',
 								'libs/angular-animate/angular-animate.min.js',
 								'libs/angular-route/angular-route.min.js',
 								'libs/angular-sanitize/angular-sanitize.min.js',

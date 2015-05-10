@@ -6,7 +6,8 @@ angular
 		'ngAnimate', 
 		'restangular', 
 		'ngRoute', 
-		'ngSanitize'
+		'ngSanitize',
+		'ui.bootstrap'
 	]);
 
 angular
@@ -43,7 +44,8 @@ angular
 		    	} else {
 			    	console.log("result of call", result);
 			    	$scope.blogTitle = result.Title;
-			    	$scope.blogContent = $sce.trustAsHtml(result.Content);	
+			    	$scope.blogContent = $sce.trustAsHtml(result.Content);
+			    	$scope.publishedOn = new Date(result.PublishedOn).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 		    	}
 	    	});    	
 	  	};

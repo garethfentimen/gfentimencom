@@ -5,11 +5,12 @@
   "dependencies": {
      "express": "latest",
 	 "mongoose": "latest",
-   "mongoose-auto-increment": "latest",
+     "mongoose-auto-increment": "latest",
 	 "body-parser": "latest",
 	 "express-handlebars":"latest",
 	 "serve-favicon":"latest",
-   "feed-read":"latest",
-   "jasmine-node-karma":"latest"
+     "feed-read":"latest",
+     "jasmine-node-karma":"latest",
+     "bower":"1.3.12"
   }
 }
