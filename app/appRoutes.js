@@ -12,7 +12,7 @@ module.exports = function(router) {
 	});
 
 	router.get('/blog', function(req, res) {
-		res.render('blog', { scripts: ['libs/lodash/dist/lodash.min.js',
+		res.render('blog', { scripts: ['libs/lodash/lodash.min.js',
 								'libs/angular/angular.min.js',
 								'libs/angular-animate/angular-animate.min.js',
 								'libs/angular-route/angular-route.min.js',

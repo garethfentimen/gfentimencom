@@ -23,7 +23,6 @@ var blogReader = {
 
   // async function- use callback to get result
   GetMostRecentBlog : function(callback) {
-
     feed('http://garethscode.blogspot.com/feeds/posts/default', function(err, articles) {
       if (err) throw err;
       // Each article has the following properties:
@@ -50,11 +49,7 @@ var blogReader = {
 
       callback(blog);
     });
-
-    console.log("async called - now this thread is free!");
-
   }
-
 };
 
 module.exports = blogReader;
