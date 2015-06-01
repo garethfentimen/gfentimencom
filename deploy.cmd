@@ -118,9 +118,9 @@ if EXIST "%DEPLOYMENT_TARGET%\bower.json" (
 echo Execute Gulp app-build
 IF EXIST "%DEPLOYMENT_TARGET%\Gulpfile.js" (
     pushd "%DEPLOYMENT_TARGET%"
-    call :ExecuteCmd !BWR_CMD! install -g gulp
+    call :ExecuteCmd !GLP_CMD! install -g gulp
     pushd "%DEPLOYMENT_TARGET%"
-    call :ExecuteCmd !GLP_CMD! gulp app-build
+    call :ExecuteCmd gulp
     IF !ERRORLEVEL! NEQ 0 goto error
     popd
 )
