@@ -108,11 +108,21 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
 :: 4. Install bower packages
 if EXIST "%DEPLOYMENT_TARGET%\bower.json" (
   pushd "%DEPLOYMENT_TARGET%"
-  call :ExecuteCmd !NPM_CMD! install -g bower
+  call :ExecuteCmd !BWR_CMD! install -g bower
   pushd "%DEPLOYMENT_TARGET%"
   call :ExecuteCmd bower install
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
+)
+
+echo Execute Gulp app-build
+IF EXIST "%DEPLOYMENT_TARGET%\Gulpfile.js" (
+    pushd "%DEPLOYMENT_TARGET%"
+    call :ExecuteCmd !BWR_CMD! install -g gulp
+    pushd "%DEPLOYMENT_TARGET%"
+    call :ExecuteCmd !GLP_CMD! gulp app-build
+    IF !ERRORLEVEL! NEQ 0 goto error
+    popd
 )
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

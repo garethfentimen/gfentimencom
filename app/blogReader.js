@@ -21,6 +21,10 @@ var blogReader = {
     });
   },
 
+  FindByKeyword : function(keyword, callback) {
+
+  },
+
   // async function- use callback to get result
   GetMostRecentBlog : function(callback) {
     feed('http://garethscode.blogspot.com/feeds/posts/default', function(err, articles) {
@@ -41,15 +45,18 @@ var blogReader = {
       // }
 
       var mostRecentBlogPost = articles[0];
-
+      //console.log(articles[0]);
       var blog = {
         Title: mostRecentBlogPost.title,
-        Content: mostRecentBlogPost.content
+        Content: mostRecentBlogPost.content,
+        PublishedOn: mostRecentBlogPost.published
       };
 
       callback(blog);
     });
-  }
+  },
+
+
 };
 
 module.exports = blogReader;
