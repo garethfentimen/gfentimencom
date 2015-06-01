@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	jshint = require('gulp-jshint'),
+	// jshint = require('gulp-jshint'),
     minifycss = require('gulp-minify-css'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
@@ -12,8 +12,8 @@ gulp.task('default', function() {
 
 gulp.task('app-build', function() {
     return gulp.src('scripts/app/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
+        // .pipe(jshint())
+        // .pipe(jshint.reporter('jshint-stylish'))
         .pipe(concat('app.js'))
         .pipe(gulp.dest('scripts/build'))
         .pipe(uglify())
