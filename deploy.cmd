@@ -121,7 +121,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\Gulpfile.js" (
     call :ExecuteCmd !GLP_CMD! npm install -g gulp
     IF !ERRORLEVEL! NEQ 0 goto error
     pushd "%DEPLOYMENT_TARGET%"
-    call :ExecuteCmd gulp
+    call :ExecuteCmd gulp app-build-live
     IF !ERRORLEVEL! NEQ 0 goto error
     popd
 )

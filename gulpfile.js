@@ -21,6 +21,15 @@ gulp.task('app-build', function() {
         .pipe(gulp.dest('scripts/build'));
 });
 
+gulp.task('app-build-live', function() {
+    return gulp.src('scripts/app/*.js')
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('scripts/build'))
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('scripts/build'));
+});
+
 gulp.task('watch', function() {
   gulp.watch('scripts/app/*.js', ['app-build']);
 });
