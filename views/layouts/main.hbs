@@ -4,10 +4,11 @@
     <meta name="viewport" content="user-scalable=no,initial-scale=1.0,maximum-scale=1.0" />
     <title>{{title}}</title>
     <link href="libs/bootstrap-css-only/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="libs/angular-loading-bar/build/loading-bar.min.css" rel="stylesheet"/>
 </head>
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,15 +23,15 @@
 		        <ul class="nav navbar-nav">
 		        </ul>
 		        <ul class="nav navbar-nav navbar-left">
-		          <li class="home"><a href="blog">Home</a></li>
+		          <li class="home"><a href="home">Home</a></li>
 		          <li class="active"><a href="blog">Blog</a></li>
 		          <li><a href="contact">Contact</a></li>
-		          <li><a id ="blog" href="about">About</a></li>
+		          <li><a href="about">About</a></li>
 		        </ul>
 		    </div><!--/.nav-collapse -->
 	    </div><!--/.container -->
 	</div>
-
+	<div class="clear-left"></div>
 	{{{body}}}
 	<!-- Bootstrap core JavaScript
     ================================================== -->    

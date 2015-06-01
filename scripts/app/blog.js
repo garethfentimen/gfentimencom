@@ -7,50 +7,44 @@ angular
 		'restangular', 
 		'ngRoute', 
 		'ngSanitize',
-		'ui.bootstrap'
+		'angular-loading-bar'
 	]);
 
 angular
 	.module('app')
-	.config(function($routeProvider, RestangularProvider) {
+	.config(['$routeProvider', 'RestangularProvider', function($routeProvider, RestangularProvider) {
 		
-		$routeProvider.when('/:blogId', 
+		$routeProvider
+			.when('/',
 			{
-				templateUrl: 'public/views/blog.html',
-				controller: 'blogContent'
+				redirectTo: 'latest'
 			})
-			.when('/', 
+			.when('/latest', 
 			{
 				templateUrl: 'public/views/blog.html',
-				controller: 'blogContent'
+				controller: 'blogMain',
+				resolve: {
+					latestBlog: ['blogFactory', function(blogFactory) {
+							//var blogRequest = $q.defer();
+							return blogFactory.loadLatestBlogPost;
+							//return blogRequest.promise;
+						}]
+				}
 			});
 
 		RestangularProvider.setBaseUrl("/api");
-	});
+	}])
 
+	.controller('blogMain', ['$scope', '$sce', 'latestBlog', function($scope, $sce, latestBlog) {
+		
+		//$scope.blogContent = "loading..";
 
-angular
-	.module('app')
-	.controller('blogContent', ['$scope', 'Restangular', '$sce', function($scope, Restangular, $sce) {
-	
-		$scope.blogContent = "loading..";
+		//var result = blogFactory.loadLatestBlogPost();
+		
+		$scope.mainContent = $sce.trustAsHtml(latestBlog.blogContent);
+		$scope.blogTitle = latestBlog.blogTitle;
+		$scope.publishedOn = latestBlog.publishedOn;
 
-		$scope.loadLatestBlogPost = function() {
-	    	console.log("do stuff here");
-	    	Restangular.one("blog").get().then(function(result) {
-				if (result == null)
-		    	{
-					console.log("result of call was null", result);
-		    	} else {
-			    	console.log("result of call", result);
-			    	$scope.blogTitle = result.Title;
-			    	$scope.blogContent = $sce.trustAsHtml(result.Content);
-			    	$scope.publishedOn = new Date(result.PublishedOn).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-		    	}
-	    	});    	
-	  	};
-
-		$scope.loadLatestBlogPost();
 	}]);
 
 })();

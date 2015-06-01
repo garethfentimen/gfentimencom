@@ -12,6 +12,7 @@
         "angularjs-toaster": "latest",
         "restangular": "latest",
         "lodash": "latest",
-		"path": "latest"
+		"path": "latest",
+        "angular-loading-bar": "latest"
     }
 }

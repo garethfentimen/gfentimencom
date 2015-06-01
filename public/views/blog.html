@@ -1,10 +1,9 @@
-<div ng-controller="blogContent">
-
+<div>
   <div class="container">
-  	<div class="col-lg-8">
-	  	<h1 ng-bind="blogTitle"></h1>
+    <div class="col-lg-8">
+        <h1 ng-bind="blogTitle"></h1>
 
-	  	<!-- Author -->
+        <!-- Author -->
         <p class="lead">
             <a href="#">By Gareth Fentimen</a>
         </p>
@@ -16,11 +15,11 @@
 
         <hr>
 
-	  	<div ng-bind-html="blogContent"></div>
+        <div ng-bind-html="mainContent"></div>
 
-	  	<hr>
+        <hr>
 
-	  	<!-- Blog Comments -->
+        <!-- Blog Comments -->
 
         <!-- Comments Form -->
         <div class="well">
@@ -47,9 +46,9 @@
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
             </div>
         </div>
-  	</div>
-	
-	<!-- Blog Sidebar Widgets Column -->
+    </div>
+    
+    <!-- Blog Sidebar Widgets Column -->
     <div class="col-md-4">
 
         <!-- Blog Search Well -->
@@ -107,6 +106,4 @@
     </div>
 
   </div>
-
-  
 </div>

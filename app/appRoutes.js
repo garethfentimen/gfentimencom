@@ -1,29 +1,14 @@
 module.exports = function(router) {
 
-	var basicDependencies = ['libs/angular/angular.min.js',
+	var allDependencies = ['libs/angular/angular.min.js',
 								'libs/angular-ui-bootstrap-bower/ui-bootstrap.min.js',
 								'libs/angular-route/angular-route.min.js',
-								'libs/angular-sanitize/angular-sanitize.min.js'];
-
-	extraSpaDependencies = ['libs/angular-animate/angular-animate.min.js',
-							'libs/restangular/dist/restangular.min.js']
-
-	appScripts = ['scripts/blog.js'];
-
-	function unionArrays(arrayToBeAddedTo, arrayToAppend, arrayToAppend2) {
-		for (var value in arrayToAppend)
-		{
-			arrayToBeAddedTo.push(value);
-		}
-
-		for (var value in arrayToAppend)
-		{
-			arrayToBeAddedTo.push(value);
-		}
-		return arrayToBeAddedTo;
-	}
-
-	var completeSet = unionArrays(extraSpaDependencies, basicDependencies, appScripts);
+								'libs/angular-sanitize/angular-sanitize.min.js',
+								'libs/angular-animate/angular-animate.min.js',
+								'libs/restangular/dist/restangular.min.js',
+								'libs/lodash/lodash.min.js',
+								'libs/angular-loading-bar/build/loading-bar.min.js',
+								'scripts/build/app.min.js'];
 
 	router.get('/', function(req, res) {
 		var data = { title: 'Gareth Fentimen' };
@@ -31,14 +16,12 @@ module.exports = function(router) {
 	});
 
 	router.get('/home', function(req, res) {
-		//res.send('im the home page!'); 
 		var data = { title: 'Gareth Fentimen' };
 		res.render('home', data);
 	});
 
 	router.get('/blog', function(req, res) {
-		res.render('blog', { scripts: completeSet
-					});
+		res.render('blog', { scripts: allDependencies });
 	});
 
 	router.get('/about', function(req, res) {
