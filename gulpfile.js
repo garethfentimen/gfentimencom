@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-    minifycss = require('gulp-minify-css'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify');
@@ -7,6 +6,8 @@ var gulp = require('gulp'),
 // "gulp-jshint": "^1.11.0",
 // "jshint-stylish": "^2.0.0"
 // jshint = require('gulp-jshint'),
+// minifycss = require('gulp-minify-css'),
+//"gulp-minify-css": "^1.1.1",
 
 gulp.task('default', function() {
     gulp.start('app-build');
