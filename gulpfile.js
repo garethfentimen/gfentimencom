@@ -4,6 +4,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify');
 
+// "gulp-jshint": "^1.11.0",
+// "jshint-stylish": "^2.0.0"
 // jshint = require('gulp-jshint'),
 
 gulp.task('default', function() {
