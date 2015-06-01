@@ -1,9 +1,10 @@
 var gulp = require('gulp'),
-	// jshint = require('gulp-jshint'),
     minifycss = require('gulp-minify-css'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify');
+
+// jshint = require('gulp-jshint'),
 
 gulp.task('default', function() {
     gulp.start('app-build');
