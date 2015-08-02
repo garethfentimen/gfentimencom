@@ -21,20 +21,43 @@ angular.module('app', ['ngAnimate', 'restangular', 'ngRoute', 'ngSanitize'])
 .controller('blogContent', ['$scope', 'Restangular', '$sce', function($scope, Restangular, $sce) {
 	
 	$scope.blogContent = "loading..";
+	$scope.blogs = [];
 
 	$scope.loadLatestBlogPost = function() {
-    	console.log("do stuff here");
     	Restangular.one("blog").get().then(function(result) {
 			if (result == null)
 	    	{
-				console.log("result of call was null", result);
+				// log error
 	    	} else {
-		    	console.log("result of call", result);
-		    	$scope.blogTitle = result.Title;
-		    	$scope.blogContent = $sce.trustAsHtml(result.Content);	
+		    	$scope.blogTitle = result.title;
+		    	$scope.blogContent = $sce.trustAsHtml(result.content);	
 	    	}
     	});    	
   	};
 
+  	$scope.loadBlogListByMonth = function() {
+		Restangular.one("blogs").get().then(function(blogInformation) {
+			var blogs = blogInformation.blogs;
+			for (var i=0, j=blogs.length; i < j; i++) 
+			{
+				var thePublishedDate = new Date(blogs[i].published);
+				$scope.blogs.push({ Title: blogs[i].title, publishedDate: thePublishedDate.toDateString() });
+			}
+		});
+  	};
+
 	$scope.loadLatestBlogPost();
+	$scope.loadBlogListByMonth();
+
+	$scope.getBlogWithTitle = function(title) {
+		Restangular.one("blog/").one(title).get().then(function(result) {
+			if (result == null || result.Success == false)
+	    	{
+				// log error
+	    	} else {
+		    	$scope.blogTitle = result.title;
+		    	$scope.blogContent = $sce.trustAsHtml(result.content);	
+	    	}
+    	});  
+	}
 }]);

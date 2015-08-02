@@ -3,11 +3,22 @@
     <div class="slide-animate"></div>
   </div> -->
 
-  <div class="container">
+  <div class="container row">
   	<br/>
   	<br/>
-  	<h1 ng-bind="blogTitle"></h1>
-  	<div ng-bind-html="blogContent"></div>
+  	<div class="col-md-8">
+  		<h1 ng-bind="blogTitle"></h1>
+  		<div ng-bind-html="blogContent"></div>
+  	</div>
+  	<div class="panel panel-info col-md-4">
+  		<div class="panel-heading"><h4>Archive</h4></div>
+  		<div class="panel-body">
+  			<ul ng-repeat="blog in blogs" class="list-unstyled">
+				<li><a ng-click="getBlogWithTitle(blog.title)">{{blog.title}}</a></li>
+				<li>{{blog.publishedDate}}</li>
+	  		</ul>
+  		</div>
+  	</div>
   </div>
 
   

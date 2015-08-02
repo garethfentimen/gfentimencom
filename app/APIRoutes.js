@@ -2,7 +2,8 @@
 // =============================================================================
 var express = require('express'); 
 var router = express.Router(); 				// get an instance of the express Router
-var blogReader = require('./blogReader');
+var BlogReader = require('./blogReader');
+var blogReader = new BlogReader();
 
 router.use(function(req, res, next) {
 	// do logging
@@ -17,20 +18,29 @@ router.get('/api', function(req, res) {
 
 router.route('/api/blog')
 	.get(function(req, res) {
-		console.log("getting getting most recent blog");
-		var blog = blogReader.GetMostRecentBlog(function(blog) {
+		//getting most recent blog
+		var blog = blogReader.getMostRecentBlog(function(blog) {
+			res.json(blog);
+		});	
+	})
+
+router.route('/api/blogs')
+	.get(function(req, res) {
+		//getting all blog information and caching it to database?
+		var blog = blogReader.getAllBlogInformation(function(blog) {
 			res.json(blog);
 		});	
 	})
 
 router.route('/api/blog/:blog_id')
-	.get(function(id, res) {
-		console.log("getting blog" + id);
-		var blog = blogReader.GetBlog(id, function(blog) {
-			//res.render('blog', blog);
+	.get(function(req, res) {
+		console.log("getting blog" + req.params.blog_id);
+		var blog = blogReader.getBlogById(req.params.blog_id, function(blog) {
+			res.json(blog);
 		});	
 	})
 
+var Bear = require("./models/bear");
 router.route('/api/bears')
 
 	// create a bear (accessed at POST http://localhost:3000/api/bears)

@@ -1,28 +1,47 @@
 var feed = require("feed-read");
-var blogReader = {
+var BlogRepository = require("./repositories/blogRepository");
 
-  GetBlogByTitle : function(title, callback) {
-    feed('http://garethscode.blogspot.com/feeds/posts/default', function(err, articles) {
-      for(var i = 0, l = articles.length; i < l; i++)
-      {
-          if (articles[i].title === title)
-          {
-            var blog = {
-                    Success: true,
-                    Title: articles[i].title,
-                    Content: articles[i].content
-                  };
+var blogReader = function() {
+  this.blogRepository = new BlogRepository();
+};
 
-            callback(blog); 
-          }
-      }
+blogReader.prototype = function() {
 
-      callback({ Success: false, message: "Unable to find blog" });
+  var retrieveAllBlogInfo = function(callback) {
+
+      feed('http://garethscode.blogspot.com/feeds/posts/default', function(err, articles) {
+      
+        var blogInformationContainer = { Success: true };
+        blogInformationContainer.blogs = [];
+
+        for(var i = 0, l = articles.linkength; i < l; i++)
+        {
+            try {
+              blogInformationContainer.blogs.push({
+                        title: articles[i].title,
+                        published: articles[i].published,
+                        content: articles[i].content
+                      });
+            }
+            catch(err)
+            {
+                callback({ Success: false, message: "Unable to retrieve all blog information" + err });
+            }
+        }
+
+        try
+        {
+            this.blogRepository.saveBlogs(blogInformationContainer.blogs);
+            callback(blogInformationContainer);
+        }
+        catch(err) {
+            callback({ Success: false, message: "Unable to persist blog information" + err });
+        }
     });
-  },
+  };
 
   // async function- use callback to get result
-  GetMostRecentBlog : function(callback) {
+  var retrieveMostRecentBlog = function(callback) {
 
     feed('http://garethscode.blogspot.com/feeds/posts/default', function(err, articles) {
       if (err) throw err;
@@ -44,17 +63,31 @@ var blogReader = {
       var mostRecentBlogPost = articles[0];
 
       var blog = {
-        Title: mostRecentBlogPost.title,
-        Content: mostRecentBlogPost.content
+        title: mostRecentBlogPost.title,
+        content: mostRecentBlogPost.content
       };
 
       callback(blog);
     });
 
-    console.log("async called - now this thread is free!");
+  };
 
+  var retrieveBlogById = function(id, callback) {
+      var result = this.blogRepository.getBlogById(id);
+      if (result != null && result.Success)
+      {
+          callback(result.blog);
+      } else {
+          callback({ Success: false, message: "Unable to find blog" });
+      }
+  };
+
+  return {
+    getBlogById : retrieveBlogById,
+    getMostRecentBlog: retrieveMostRecentBlog,
+    getAllBlogInformation : retrieveAllBlogInfo
   }
 
-};
+}();
 
 module.exports = blogReader;
