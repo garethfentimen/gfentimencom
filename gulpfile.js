@@ -1,0 +1,39 @@
+var gulp = require('gulp'),
+    rename = require('gulp-rename'),
+    concat = require('gulp-concat'),
+    uglify = require('gulp-uglify');
+
+// "gulp-jshint": "^1.11.0",
+// "jshint-stylish": "^2.0.0"
+// jshint = require('gulp-jshint'),
+// minifycss = require('gulp-minify-css'),
+//"gulp-minify-css": "^1.1.1",
+
+gulp.task('default', function() {
+    gulp.start('app-build');
+    //gulp.start('watch');
+});
+
+gulp.task('app-build', function() {
+    return gulp.src('scripts/app/*.js')
+        // .pipe(jshint())
+        // .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('scripts/build'))
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('scripts/build'));
+});
+
+gulp.task('app-build-live', function() {
+    return gulp.src('scripts/app/*.js')
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('scripts/build'))
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('scripts/build'));
+});
+
+gulp.task('watch', function() {
+  gulp.watch('scripts/app/*.js', ['app-build']);
+});

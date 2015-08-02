@@ -24,8 +24,16 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 3000; 		// set our port
 
 // API routes
+<<<<<<< HEAD
 var router = require('./app/apiRoutes');
+
+// App routes
+appRoutes = require('./app/appRoutes')(router);
+router = appRoutes.addRoutes();
+=======
+var router = require('./app/APIRoutes');
 router = require("./app/appRoutes.js")(router);
+
 // redirect for www to non-www
 app.all('/*', function(req, res, next) {
   if (req.headers.host.match(/^www\./) !== null) {
@@ -36,6 +44,7 @@ app.all('/*', function(req, res, next) {
 })
 
 app.set('trust proxy', true);
+>>>>>>> 41059a960f0e0682974f1668997e913d01b6d581
 
 // register all our routes
 app.use('/', router);

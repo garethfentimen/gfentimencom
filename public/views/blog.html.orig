@@ -1,25 +1,50 @@
+<<<<<<< HEAD
+<div ng-controller="blogContent">
+  <!-- <div class="slide-animate-container">
+    <div class="slide-animate"></div>
+  </div> -->
+
+  <div class="container row">
+  	<br/>
+  	<br/>
+  	<div class="col-md-8">
+  		<h1 ng-bind="blogTitle"></h1>
+  		<div ng-bind-html="blogContent"></div>
+  	</div>
+  	<div class="panel panel-info col-md-4">
+  		<div class="panel-heading"><h4>Archive</h4></div>
+  		<div class="panel-body">
+  			<ul ng-repeat="blog in blogs" class="list-unstyled">
+				<li><a ng-click="getBlogWithTitle(blog.title)">{{blog.title}}</a></li>
+				<li>{{blog.publishedDate}}</li>
+	  		</ul>
+  		</div>
+  	</div>
+  </div>
+=======
 <div>
   <div class="container">
     <div class="col-lg-8">
-      	<div class="col-md-12">
-      		<h1 ng-bind="blogTitle"></h1>
-      		<div ng-bind-html="blogContent"></div>
-      	</div>
-        <div class="col-md-12">
-            <hr>
-            <!-- Date/Time -->
-            <p>
-                <span class="glyphicon glyphicon-time"></span> Posted on <span ng-bind="publishedOn">
-                </span>
-                <span class="pull-right">by Gareth Fentimen</span>
-            </p>
-            <hr>
-        </div>
+        <h1 ng-bind="blogTitle"></h1>
+
+        <!-- Author -->
+        <p class="lead">
+            <a href="#">By Gareth Fentimen</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p><span class="glyphicon glyphicon-time"></span> Posted on <span ng-bind="publishedOn"></span></p>
+
+        <hr>
+
         <div ng-bind-html="mainContent"></div>
 
         <hr>
 
         <!-- Blog Comments -->
+>>>>>>> 41059a960f0e0682974f1668997e913d01b6d581
 
         <!-- Comments Form -->
         <div class="well">
@@ -97,15 +122,6 @@
             <!-- /.row -->
         </div>
 
-        <div class="well panel-heading">
-            <h4>Archive</h4>
-            <div class="panel-body">
-                <ul ng-repeat="blog in blogs" class="list-unstyled">
-                    <li><a ng-click="getBlogWithTitle(blog.title)">{{blog.title}}</a></li>
-                    <li>{{blog.publishedDate}}</li>
-                </ul>
-            </div>
-        </div>
         <!-- Side Widget Well -->
         <div class="well">
             <h4>Side Widget Well</h4>

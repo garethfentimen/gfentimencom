@@ -1,8 +1,8 @@
-var feed = require("feed-read"),
-    blogRepository = require("./repositories/blogRepository");
+var feed = require("feed-read");
+var BlogRepository = require("./repositories/blogRepository");
 
 var blogReader = function() {
-  this.blogRepository = new blogRepository();
+  this.blogRepository = new BlogRepository();
 };
 
 blogReader.prototype = function() {
@@ -40,12 +40,17 @@ blogReader.prototype = function() {
     });
   };
 
-  var findByKeyword = function(keyword, callback) {
+  FindByKeyword : function(keyword, callback) {
 
-  }
+  },
 
   // async function- use callback to get result
+<<<<<<< HEAD
   var retrieveMostRecentBlog = function(callback) {
+
+=======
+  GetMostRecentBlog : function(callback) {
+>>>>>>> 41059a960f0e0682974f1668997e913d01b6d581
     feed('http://garethscode.blogspot.com/feeds/posts/default', function(err, articles) {
       if (err) throw err;
       // Each article has the following properties:
@@ -66,13 +71,21 @@ blogReader.prototype = function() {
       var mostRecentBlogPost = articles[0];
       //console.log(articles[0]);
       var blog = {
+<<<<<<< HEAD
         title: mostRecentBlogPost.title,
-        content: mostRecentBlogPost.content,
-        publishedOn: mostRecentBlogPost.published
+        content: mostRecentBlogPost.content
+=======
+        Title: mostRecentBlogPost.title,
+        Content: mostRecentBlogPost.content,
+        PublishedOn: mostRecentBlogPost.published
+>>>>>>> 41059a960f0e0682974f1668997e913d01b6d581
       };
 
       callback(blog);
     });
+  },
+
+<<<<<<< HEAD
   };
 
   var retrieveBlogById = function(id, callback) {
@@ -90,6 +103,8 @@ blogReader.prototype = function() {
     getMostRecentBlog: retrieveMostRecentBlog,
     getAllBlogInformation : retrieveAllBlogInfo
   }
+=======
+>>>>>>> 41059a960f0e0682974f1668997e913d01b6d581
 
 }();
 
