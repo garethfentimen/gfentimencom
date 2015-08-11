@@ -33,7 +33,7 @@ gulp.task('app-build', function() {
 });
 
 gulp.task('fonts-build', function() {
-    return gulp.src(['libs/bootstrap-css-only/css/fonts/*'])
+    return gulp.src(['libs/bootstrap-css-only/fonts/*'])
                 .pipe(gulp.dest('public/build/fonts'))
 });
 
