@@ -26,12 +26,17 @@ var port = process.env.PORT || 3000; 		// set our port
 // API routes
 var router = require('./app/apiRoutes');
 router = require("./app/appRoutes.js")(router);
-// redirect for www to non-www
-app.all('/*', function(req, res, next) {
-  if (req.headers.host.match(/^www\./) !== null) {
-    res.redirect(301, req.protocol + '://' + req.headers.host.replace(/^www\./, '') + req.url);
+// redirect for non-www to www
+app.all(/.*/, function(req, res, next) {
+  if (req.headers.host.match(/^www\..*/i)) {
+    next();
   } else {
-    next();     
+    if (req.hostname.match(/^localhost*/i))
+    {
+		next();
+    } else {
+    	res.redirect(301, req.protocol + '://www.' + req.header("host"));
+    }
   }
 })
 

@@ -1,14 +1,5 @@
 module.exports = function(router) {
-
-	var allDependencies = ['libs/angular/angular.min.js',
-								'libs/angular-ui-bootstrap-bower/ui-bootstrap.min.js',
-								'libs/angular-route/angular-route.min.js',
-								'libs/angular-sanitize/angular-sanitize.min.js',
-								'libs/angular-animate/angular-animate.min.js',
-								'libs/restangular/dist/restangular.min.js',
-								'libs/lodash/dist/lodash.min.js',
-								'libs/angular-loading-bar/build/loading-bar.min.js',
-								'scripts/build/app.min.js'];
+	var fs = require("fs");
 
 	router.get('/', function(req, res) {
 		var data = { title: 'Gareth Fentimen' };
@@ -21,7 +12,9 @@ module.exports = function(router) {
 	});
 
 	router.get('/blog', function(req, res) {
-		res.render('blog', { scripts: allDependencies });
+		res.render('blog', { 
+			scripts:  ['public/build/scripts/dep.min.js', 'public/build/scripts/app.min.js']
+		});
 	});
 
 	router.get('/about', function(req, res) {
