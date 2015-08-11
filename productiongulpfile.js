@@ -2,7 +2,6 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    eslint = require('gulp-eslint'),
     minifyCSS = require('gulp-minify-css');;
 
 gulp.task('default', function() {
@@ -10,26 +9,6 @@ gulp.task('default', function() {
     gulp.start('app-build');
     gulp.start('css-build');
     gulp.start('fonts-build');
-});
-
-gulp.task('lint', function () {
-    return gulp.src(['js/**/*.js'])
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failOnError());
-});
-
-gulp.task('app-build', ['lint'], function() {
-    return gulp.src('scripts/app/*.js')
-        .pipe(concat('app.js'))
-        .pipe(uglify())
-        .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest('public/build/scripts'));
-});
-
-gulp.task('fonts-build', function() {
-    return gulp.src(['libs/bootstrap-css-only/css/fonts'])
-                .pipe(gulp.dest('public/build/fonts'))
 });
 
 gulp.task('dep-build', function() {
@@ -45,6 +24,19 @@ gulp.task('dep-build', function() {
         .pipe(gulp.dest('public/build/scripts'));
 });
 
+gulp.task('app-build', function() {
+    return gulp.src('scripts/app/*.js')
+        .pipe(concat('app.js'))
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('public/build/scripts'));
+});
+
+gulp.task('fonts-build', function() {
+    return gulp.src(['libs/bootstrap-css-only/css/fonts/*'])
+                .pipe(gulp.dest('public/build/fonts'))
+});
+
 gulp.task('css-build', function() {
     return gulp.src(['libs/angular-loading-bar/build/loading-bar.css',
                     'libs/bootstrap-css-only/css/bootstrap.css'])
@@ -52,8 +44,4 @@ gulp.task('css-build', function() {
         .pipe(minifyCSS())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('public/build/styles'));
-});
-
-gulp.task('watch', function() {
-  gulp.watch('scripts/app/*.js', ['app-build']);
 });
