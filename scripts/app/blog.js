@@ -1,6 +1,3 @@
-(function() {
-	'use strict';
-
 angular
 	.module('app', [
 		'ngAnimate', 
@@ -46,5 +43,3 @@ angular
 		$scope.publishedOn = latestBlog.publishedOn;
 
 	}]);
-
-})();

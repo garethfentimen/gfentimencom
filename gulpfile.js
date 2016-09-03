@@ -34,13 +34,13 @@ gulp.task('fonts-build', function() {
 });
 
 gulp.task('dep-build', function() {
-    return gulp.src(['libs/lodash/lodash.min.js','libs/angular/angular.min.js',
-                                'libs/angular-ui-bootstrap-bower/ui-bootstrap.min.js',
-                                'libs/angular-route/angular-route.min.js',
-                                'libs/angular-sanitize/angular-sanitize.min.js',
-                                'libs/angular-animate/angular-animate.min.js',
-                                'libs/restangular/dist/restangular.min.js',
-                                'libs/angular-loading-bar/build/loading-bar.min.js'])
+    return gulp.src(['libs/lodash/dist/lodash.js','libs/angular/angular.js',
+                                'libs/angular-ui-bootstrap-bower/ui-bootstrap.js',
+                                'libs/angular-route/angular-route.js',
+                                'libs/angular-sanitize/angular-sanitize.js',
+                                'libs/angular-animate/angular-animate.js',
+                                'libs/restangular/dist/restangular.js',
+                                'libs/angular-loading-bar/build/loading-bar.js'])
         .pipe(concat('dep.min.js'))
         .pipe(gulp.dest('public/build/scripts'));
 });

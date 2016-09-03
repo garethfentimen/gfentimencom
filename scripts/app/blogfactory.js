@@ -1,7 +1,4 @@
- (function() {
- 	'use strict';
-
-	angular
+ angular
 		.module('app')
 		.factory('blogFactory', ['Restangular', '$sce', function(Restangular, $sce) {
 			
@@ -23,5 +20,3 @@
 
 	    	return fac;
 		}]);
-
-})();
