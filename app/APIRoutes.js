@@ -26,7 +26,6 @@ router.route('/api/blog')
 
 router.route('/api/blogs')
 	.get(function(req, res) {
-		//getting all blog information and caching it to database?
 		var blog = blogReader.getAllBlogInformation(function(blog) {
 			res.json(blog);
 		});	

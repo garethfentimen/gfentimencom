@@ -1,5 +1,3 @@
-// app/models/blog.js
-
 var db = require('../db'),
 	mongoose = require('mongoose'),
 	autoIncrement = require('mongoose-auto-increment'),

@@ -2,6 +2,9 @@
   "name": "gfentimencom",
   "main": "server.js",
   "version": "0.0.1",
+  "scripts": {
+    "start": "set googleBloggerAPIKey=AIzaSyCuMRBJYqqUyEYceE4zyZahLAjCLipOqWk&& node server.js"
+  },
   "dependencies": {
     "body-parser": "latest",
     "bower": "^1.7.9",
