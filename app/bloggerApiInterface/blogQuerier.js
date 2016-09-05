@@ -2,7 +2,7 @@ var https = require('https');
 
 var blogQuerier = (function () {
     if (process.env.googleBloggerAPIKey === undefined) {
-        process.env.googleBloggerAPIKey = "AIzaSyCuMRBJYqqUyEYceE4zyZahLAjCLipOqWk";
+        //process.env.googleBloggerAPIKey = "AIzaSyCuMRBJYqqUyEYceE4zyZahLAjCLipOqWk";
     }
 
     var apiKey = "key=" + process.env.googleBloggerAPIKey;

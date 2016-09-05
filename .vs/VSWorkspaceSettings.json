@@ -6,10 +6,10 @@
     "\\app\\bloggerApiInterface\\Queries",
     "\\app\\repositories",
     "\\public",
-    "\\public\\images",
-    "\\public\\views",
     "\\scripts",
-    "\\views"
+    "\\scripts\\app",
+    "\\views",
+    "\\views\\layouts"
   ],
-  "SelectedNode": "\\app\\bloggerApiInterface\\Queries\\GetAllBlogEntriesQuery.js"
+  "SelectedNode": "\\app\\bloggerApiInterface\\blogQuerier.js"
 }
