@@ -1,6 +1,6 @@
 var feed = require("feed-read"),
     blogRepository = require("./repositories/blogRepository"),
-    bloggerApiAllEntriesQuery = require("./bloggerApiInterface/Queries/GetAllBlogEntriesQuery");
+    bloggerApiAllEntriesQuery = require("./bloggerApiInterface/Queries/GetAllBlogPostsQuery");
 
 var blogReader = function () {
     this.blogRepository = new blogRepository();
@@ -13,40 +13,12 @@ blogReader.prototype = function () {
         bloggerApiAllEntriesQuery.get(function (result) {
             callback(result);
         });
-
-        //feed('http://garethscode.blogspot.com/feeds/posts/default', function (err, articles) {
-
-        //    var blogInformationContainer = { Success: true };
-        //    blogInformationContainer.blogs = [];
-
-        //    for (var i = 0, l = articles.linkength; i < l; i++) {
-        //        try {
-        //            blogInformationContainer.blogs.push({
-        //                title: articles[i].title,
-        //                published: articles[i].published,
-        //                content: articles[i].content
-        //            });
-        //        }
-        //        catch (err) {
-        //            callback({ Success: false, message: "Unable to retrieve all blog information" + err });
-        //        }
-        //    }
-
-        //    try {
-        //        this.blogRepository.saveBlogs(blogInformationContainer.blogs);
-        //        callback(blogInformationContainer);
-        //    }
-        //    catch (err) {
-        //        callback({ Success: false, message: "Unable to persist blog information" + err });
-        //    }
-        //});
     };
 
     var findByKeyword = function (keyword, callback) {
 
     }
 
-    // async function- use callback to get result
     var retrieveMostRecentBlog = function (callback) {
         feed('http://garethscode.blogspot.com/feeds/posts/default', function (err, articles) {
             if (err) throw err;

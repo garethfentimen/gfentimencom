@@ -3,16 +3,13 @@ var db = require('../db'),
 	autoIncrement = require('mongoose-auto-increment'),
 	Schema = mongoose.Schema;
 
-var blogSchema = new Schema({
+var blogPostSchema = new Schema({
 	title: String,
 	published: Date,
-	content: String
+	labels: [{ type: Number, ref: 'Label' }],
+	postId: Number
 });
 
-blogSchema.plugin(autoIncrement.plugin, 
-					{ 
-						model: 'Blog',
-					  	field: 'blogId'
-					});
+blogSchema.plugin(autoIncrement.plugin, 'BlogPost');
 
-module.exports = mongoose.model('Blog', blogSchema);
+module.exports = mongoose.model('BlogPost', blogPostSchema);
