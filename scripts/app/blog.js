@@ -32,7 +32,7 @@ angular
 
     .controller('blogMain', ['$scope', '$sce', 'latestBlogs', function ($scope, $sce, latestBlogs) {
 		
-		//$scope.blogContent = "loading..";
+		$scope.blogContent = "loading..";
         
         $scope.blogs = latestBlogs;
 		//$scope.mainContent = $sce.trustAsHtml(latestBlog.blogContent);
