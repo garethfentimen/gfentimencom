@@ -24,7 +24,8 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 3000; 		// set our port
 
 // API routes
-var router = require('./app/apiRoutes');
+var router = require('./app/blogApiRoutes');
+router = require("./app/labelApiRoutes.js")(router);
 router = require("./app/appRoutes.js")(router);
 // redirect for non-www to www
 app.all(/.*/, function(req, res, next) {

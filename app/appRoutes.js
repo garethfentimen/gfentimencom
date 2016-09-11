@@ -1,5 +1,4 @@
 module.exports = function(router) {
-	var fs = require("fs");
 
 	router.get('/', function(req, res) {
 		var data = { title: 'Gareth Fentimen' };

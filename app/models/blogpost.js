@@ -5,7 +5,9 @@ var db = require('../db'),
 
 var blogPostSchema = new Schema({
 	title: String,
+	content: String,
 	published: Date,
+	updated: Date,
 	labels: [{ type: Number, ref: 'Label' }],
 	postId: Number
 });

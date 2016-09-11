@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router(); 				// get an instance of the express Router
 var BlogReader = require('./blogReader');
+var blogQuery = require();
 var blogReader = new BlogReader();
 
 router.use(function (req, res, next) {
@@ -16,12 +17,10 @@ router.get('/api', function (req, res) {
     });
 });
 
-router.route('/api/blog')
+router.route('/api/blog/:number')
     .get(function (req, res) {
-        //getting most recent blog
-        var blog = blogReader.getMostRecentBlog(function (blog) {
-            res.json(blog);
-        });
+        console.log("getting the last " + req.params.number + " most recent blogs" + req.params.number);
+        
     });
 
 router.route('/api/blogs')
