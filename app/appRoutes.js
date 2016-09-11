@@ -6,7 +6,7 @@ module.exports = function(router) {
 	});
 
 	router.get('/home', function(req, res) {
-		var data = { title: 'Gareth Fentimen' };
+		var data = { title: 'Gareth Fentimen - Software Developer' };
 		res.render('home', data);
 	});
 
