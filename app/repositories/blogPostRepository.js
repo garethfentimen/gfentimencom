@@ -1,4 +1,4 @@
-var blogEntity = require("../models/blog");
+var blogEntity = require("../models/blogpost");
 
 var blogRepository = function() {
 };
@@ -6,34 +6,36 @@ var blogRepository = function() {
 blogRepository.prototype = function() {
 
 	var findBlog = function(blog) {
-		if (blog)
-		{
+		return new Promise(function(resolve, reject) {
 			blogEntity.findOne({ 'title': blog.title }, function (err, blog) {
 		  		if (err) 
 	  			{
-	  				return { 
+	  				resolve({ 
 			  			Success : false, 
 			  			Message : "There was a fault when querying the mongo db" + err 
-			  		};
+			  		});
 		  		}
-		  		return { Success: true, Blog: blog };
-			})
-		}
-	};
+		  		return resolve({ 
+					  Success: true, 
+					  Blog: blog 
+					});
+			});
+		});
+	}
 
 	var saveBlog = function(blog) {
-		if (blog)
-		{
-			var findresult = findBlog(blog);
-			if (findresult.Success)
-			{
-				return findresult;
-			} else {
-				if (findresult.Message != '')
+		return new Promise(function(resolve, reject) {
+			var findresult = findBlog(blog).then(function(findresult) {
+				if (findresult.Success && findresult.Blog !== null || findresult.Blog !== undefined)
 				{
-					return findresult;
+					resolve({ Success: true, Blog: findresult.Blog });
+				} 
+
+				if (!findresult.Success && findresult.Message !== '')
+				{
+					resolve(findresult);
 				}
-				
+
 				try
 				{
 					var newBlog = new blogEntity();
@@ -44,25 +46,10 @@ blogRepository.prototype = function() {
 				}
 				catch (err)
 				{
-					return { Success: false, Message: "Problem saving blog to mongo db: " + err };	
+					resolve({ Success: false, Message: "Problem saving blog to mongo db: " + err });	
 				}
-			}
-		}
-	};
-
-	var saveBlogs = function (blogs) {
-		if (blogs === null || blogs.length === 0)
-		{
-			return { Success: false, Message: "The blogs array was empty. No action was performed." };
-		}
-
-		var resultOfOperation = [];
-		for (var i=0, j=blogs.length; i<j; i++)
-		{
-			resultOfOperation.push(this.saveBlog(blogs[i]));
-		}
-
-		return resultOfOperation;
+			});
+		});
 	};
 
 	var findBlogById = function(id) {
@@ -81,8 +68,9 @@ blogRepository.prototype = function() {
 	};
 
 	return {
-		saveBlogs: saveBlogs,
-		getBlogById: findBlogById
+		saveBlog: saveBlog,
+		getBlogById: findBlogById,
+		findBlogByTitle: findBlog
 	}	
 }();
 

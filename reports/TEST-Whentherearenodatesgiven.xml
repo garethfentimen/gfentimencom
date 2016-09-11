@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+<testsuite name="When there are no dates given" errors="0" tests="1" failures="0" time="0.02" timestamp="2016-09-10T19:34:22">
+  <testcase classname="When there are no dates given" name="Should be false" time="0.02"></testcase>
+</testsuite>
+</testsuites>

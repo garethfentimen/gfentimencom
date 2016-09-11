@@ -2,14 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\app",
-    "\\app\\bloggerApiInterface",
-    "\\app\\bloggerApiInterface\\Queries",
-    "\\app\\repositories",
-    "\\public",
-    "\\scripts",
-    "\\scripts\\app",
-    "\\views",
-    "\\views\\layouts"
+    "\\app\\queries",
+    "\\app\\queries\\blogpost",
+    "\\spec"
   ],
-  "SelectedNode": "\\app\\bloggerApiInterface\\blogQuerier.js"
+  "SelectedNode": "\\app\\queries\\blogpost\\getTheLastNBlogPostsQuery.js"
 }
