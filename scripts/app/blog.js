@@ -34,7 +34,7 @@ angular
 		
 		$scope.blogContent = "loading..";
         
-        $scope.blogs = latestBlogs;
+        $scope.blogs = latestBlogs.items;
 		//$scope.mainContent = $sce.trustAsHtml(latestBlog.blogContent);
 		//$scope.blogTitle = latestBlog.blogTitle;
 		//$scope.publishedOn = latestBlog.publishedOn;

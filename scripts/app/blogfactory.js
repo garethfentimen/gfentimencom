@@ -6,7 +6,7 @@ angular
 
         return {
             loadLatestEightBlogPosts: function () {
-                return Restangular.all("blogs").getList().then(function (result) {
+                return Restangular.one("blog", 3).get(function (result) {
                     console.log("ok I am running the main query");
                     console.log(result);
                     return result;
