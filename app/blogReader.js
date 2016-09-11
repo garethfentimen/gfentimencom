@@ -1,6 +1,6 @@
 var feed = require("feed-read"),
-    blogRepository = require("./repositories/blogRepository"),
-    bloggerApiAllEntriesQuery = require("./bloggerApiInterface/Queries/GetAllBlogPostsQuery");
+    blogRepository = require("./repositories/blogPostRepository"),
+    bloggerApiAllEntriesQuery = require("./bloggerApiInterface/queries/getTheLastNBlogPostsQuery");
 
 var blogReader = function () {
     this.blogRepository = new blogRepository();

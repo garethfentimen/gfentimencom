@@ -68,8 +68,9 @@ blogRepository.prototype = function() {
 	};
 
 	return {
-		saveBlogs: saveBlogs,
-		getBlogById: findBlogById
+		saveBlog: saveBlog,
+		getBlogById: findBlogById,
+		findBlogByTitle: findBlog
 	}	
 }();
 

@@ -1,8 +1,9 @@
-var express = require('express');
-var router = express.Router(); 				// get an instance of the express Router
-var BlogReader = require('./blogReader');
-var blogQuery = require();
-var blogReader = new BlogReader();
+var express = require('express'),
+router = express.Router(),		// get an instance of the express Router
+BlogReader = require('./blogReader'),
+httpStatus = require('./httpStatus'),
+blogQuery = require('./queries/blogpost/getTheLastNBlogPostsQuery'),
+blogReader = new BlogReader();
 
 router.use(function (req, res, next) {
     //console.log('Something is happening.');
@@ -19,15 +20,24 @@ router.get('/api', function (req, res) {
 
 router.route('/api/blog/:number')
     .get(function (req, res) {
-        console.log("getting the last " + req.params.number + " most recent blogs" + req.params.number);
-        
+        var numberToRetrieve = req.params.number;
+        console.log("getting the last " + numberToRetrieve + " most recent blogs" + numberToRetrieve);
+        if (numberToRetrieve === undefined)
+        {
+            res.status(httpStatus.BAD_REQUEST).json({ "message": "Please specifiy the number of blogs to retrieve"});
+        }
+        blogQuery.get(numberToRetrieve).then(function(result) {
+            res.status(httpStatus.OK).json(result);
+        }).catch(function(errorResult) {
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResult);
+        });
     });
 
 router.route('/api/blogs')
     .get(function (req, res) {
-        var blog = blogReader.getAllBlogInformation(function (blog) {
-            res.json(blog);
-        });
+        // var blog = blogReader.getAllBlogInformation(function (blog) {
+        //     res.json(blog);
+        // });
     });
 
 router.route('/api/blog/:blog_id')

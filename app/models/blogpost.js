@@ -12,6 +12,6 @@ var blogPostSchema = new Schema({
 	postId: Number
 });
 
-blogSchema.plugin(autoIncrement.plugin, 'BlogPost');
+blogPostSchema.plugin(autoIncrement.plugin, 'BlogPost');
 
 module.exports = mongoose.model('BlogPost', blogPostSchema);
