@@ -23,9 +23,9 @@ gulp.task('app-build', ['lint'], function() {
     return gulp.src('scripts/app/*.js')
         .pipe(concat('app.js'))
         .pipe(gulp.dest('public/build/scripts'))
+        .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('public/build/scripts'));
-    //.pipe(uglify())
 });
 
 gulp.task('fonts-build', function() {
