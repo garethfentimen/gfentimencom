@@ -21,11 +21,12 @@ router.get('/api', function (req, res) {
 router.route('/api/blog/:number')
     .get(function (req, res) {
         var numberToRetrieve = req.params.number;
-        console.log("getting the last " + numberToRetrieve + " most recent blogs" + numberToRetrieve);
+        console.log("getting the last " + numberToRetrieve + " most recent blogs");
         if (numberToRetrieve === undefined)
         {
             res.status(httpStatus.BAD_REQUEST).json({ "message": "Please specifiy the number of blogs to retrieve"});
         }
+
         blogQuery.get(numberToRetrieve).then(function(result) {
             res.status(httpStatus.OK).json(result);
         }).catch(function(errorResult) {

@@ -1,0 +1,9 @@
+.post-heading {
+    background-color: #E6F3E2;
+    padding: 12px 5px;
+    border: 1px solid #e3e3e3;
+}
+
+.post-heading h1 {
+    margin: 0;
+}
