@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "set googleBloggerAPIKey=AIzaSyCuMRBJYqqUyEYceE4zyZahLAjCLipOqWk&& node server.js",
-    "test": "node node_modules/jasmine-node/lib/jasmine-node/cli.js --verbose --junitreport spec/"
+    "test": "node node_modules/jasmine/bin/jasmine.js"
   },
   "dependencies": {
     "body-parser": "latest",
@@ -26,7 +26,6 @@
   "devDependencies": {
     "gulp-autoprefixer": "^2.2.0",
     "gulp-eslint": "^1.0.0",
-    "jasmine": "^2.5.2",
-    "jasmine-node": "latest"
+    "jasmine": "^2.5.2"
   }
 }

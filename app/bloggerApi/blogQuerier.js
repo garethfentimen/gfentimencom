@@ -12,7 +12,6 @@ var blogQuerier = (function () {
             params += requestParameters[i] + "&";
         }
 
-        console.log("full query", '/blogger/v3/blogs/' + blogId + '/posts?' + params + apiKey);
         return '/blogger/v3/blogs/' + blogId + '/posts?' + params + apiKey;
     };
 
