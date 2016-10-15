@@ -6,8 +6,7 @@ var getTheLastNBlogPostsQuery = (function () {
 		get: function (number, nextPageToken) {
 			return new Promise(function(resolve, reject) {
 				
-				var filter = new [];
-				console.log("filter: ", filter);
+				var filter = [];
 				
 				filter.push("maxResults=" + number);
 				if (nextPageToken != undefined)
@@ -15,8 +14,8 @@ var getTheLastNBlogPostsQuery = (function () {
 					filter.push("pageToken=" + nextPageToken);
 				}
 
-				console.log("filter: ", filter[0]);
-				blogQuerier.request([filter, "orderBy=published"], function (response) {
+				filter.push("orderBy=published");
+				blogQuerier.request(filter, function (response) {
 					resolve(JSON.parse(response));
 				});
 			});

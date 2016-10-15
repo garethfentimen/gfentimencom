@@ -18,7 +18,7 @@ router.get('/api', function (req, res) {
     });
 });
 
-var getPosts = function(req, nextPageToken) {
+var getPosts = function(req, res, nextPageToken) {
     var numberToRetrieve = req.params.number;
     console.log("getting the last " + numberToRetrieve + " most recent blog posts");
     if (numberToRetrieve === undefined)
@@ -33,17 +33,17 @@ var getPosts = function(req, nextPageToken) {
     });
 };
 
-router.route('/api/posts/:number/:nextPageToken')
+router.route('/api/posts/:number/nextpage/:nextPageToken')
     .get(function (req, res) {
         var nextPageToken = req.params.nextPageToken;
         console.log("the next page token is: " + nextPageToken);
 
-        getPosts(req, nextPageToken);
+        getPosts(req, res, nextPageToken);
     });
 
 router.route('/api/posts/:number')
     .get(function (req, res) {
-        getPosts(req);
+        getPosts(req, res);
     });
 
 
