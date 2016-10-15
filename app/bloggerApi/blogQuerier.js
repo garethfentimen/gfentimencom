@@ -12,6 +12,7 @@ var blogQuerier = (function () {
             params += requestParameters[i] + "&";
         }
 
+        console.log("full query", '/blogger/v3/blogs/' + blogId + '/posts?' + params + apiKey);
         return '/blogger/v3/blogs/' + blogId + '/posts?' + params + apiKey;
     };
 
@@ -35,7 +36,7 @@ var blogQuerier = (function () {
 
                 //the whole response has been recieved, so we just print it out here
                 response.on('end', function () {
-                    callback(str);
+                    return callback(str);
                 });
             }).end();
         }

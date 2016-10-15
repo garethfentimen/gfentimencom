@@ -22,7 +22,7 @@ angular
 				controller: 'blogMain',
 				resolve: {
 					latestBlogs: ['blogFactory', function(blogFactory) {
-                            return blogFactory.loadLatestEightBlogPosts();
+                            return blogFactory.loadBlogPosts();
 						}]
 				}
 			});
@@ -30,7 +30,7 @@ angular
 		RestangularProvider.setBaseUrl("/api");
 	}])
 
-    .controller('blogMain', ['$scope', 'latestBlogs', function ($scope, latestBlogs) {
+    .controller('blogMain', ['$scope', 'latestBlogs', 'getNextBlogsService', function ($scope, latestBlogs, getNextBlogsService) {
 		
 		$scope.blogContent = "loading..";
         
@@ -39,7 +39,9 @@ angular
 		$scope.Token = latestBlogs.nextPageToken;
 
 		$scope.getNextBlogs = function(token) {
-			
+			getNextBlogsService.get(function(blogs) {
+				$scope.blogs = blogs;
+			});
 		}
 
         $scope.formatDate = function (published) {
