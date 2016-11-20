@@ -1,7 +1,8 @@
+
 module.exports = function(router) {
 
 	router.get('/', function(req, res) {
-		var data = { title: 'Gareth Fentimen' };
+		var data = { title: 'Gareth Fentimen - Software Developer' };
 		res.render('home', data);
 	});
 
@@ -11,13 +12,13 @@ module.exports = function(router) {
 	});
 
 	router.get('/blog', function(req, res) {
-		res.render('blog', { 
-			scripts:  ['public/build/scripts/dep.min.js', 'public/build/scripts/app.min.js']
+		res.render('blog', {
+        	scripts:  ['public/build/scripts/dep.min.js', 'public/build/scripts/app.min.js']
 		});
 	});
 
 	router.get('/about', function(req, res) {
-		var data = { title: "About me" };
+		var data = { title: 'Gareth Fentimen - Software Developer' };
 		res.render('about', data);	
 	});
 

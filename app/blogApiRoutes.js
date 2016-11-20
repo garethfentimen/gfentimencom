@@ -33,7 +33,7 @@ var getPosts = function(req, res, nextPageToken) {
     });
 };
 
-router.route('/api/posts/:number/nextpage/:nextPageToken')
+router.route('/api/posts/:number/nextPageToken/:nextPageToken')
     .get(function (req, res) {
         var nextPageToken = req.params.nextPageToken;
         console.log("the next page token is: " + nextPageToken);
