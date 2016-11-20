@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 
 gulp.task('default', ['dep','app','css','fonts']);
 
-gulp.task('production', ['dep','app-prod','css','fonts']);
+gulp.task('production', ['dep-prod','app-prod','css','fonts']);
 
 gulp.task('lint', function () {
     return gulp.src(['js/**/*.js'])
@@ -39,6 +39,18 @@ gulp.task('fonts', function() {
 });
 
 gulp.task('dep', function() {
+    return gulp.src(['libs/lodash/dist/lodash.js','libs/angular/angular.js',
+                                'libs/angular-ui-bootstrap-bower/ui-bootstrap.js',
+                                'libs/angular-route/angular-route.js',
+                                'libs/angular-sanitize/angular-sanitize.js',
+                                'libs/angular-animate/angular-animate.js',
+                                'libs/restangular/dist/restangular.js',
+                                'libs/angular-loading-bar/build/loading-bar.js'])
+        .pipe(concat('dep.min.js'))
+        .pipe(gulp.dest('public/build/scripts'));
+});
+
+gulp.task('dep-prod', function() {
     return gulp.src(['libs/lodash/dist/lodash.js','libs/angular/angular.js',
                                 'libs/angular-ui-bootstrap-bower/ui-bootstrap.js',
                                 'libs/angular-route/angular-route.js',
