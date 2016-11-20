@@ -5,9 +5,9 @@ var gulp = require('gulp'),
     eslint = require('gulp-eslint'),
     minifyCSS = require('gulp-minify-css');;
 
-gulp.task('default', ['dep','app-prod','css','fonts']);
+gulp.task('default', ['dep','app','css','fonts']);
 
-gulp.task('dev', ['dep','app','css','fonts']);
+gulp.task('production', ['dep','app-prod','css','fonts']);
 
 gulp.task('lint', function () {
     return gulp.src(['js/**/*.js'])
