@@ -2,11 +2,9 @@ angular
     .module('app')
     .factory('blogFactory', ['Restangular', '$sce', function (Restangular, $sce) {
 
-        
-
         return {
-            loadLatestEightBlogPosts: function () {
-                return Restangular.one("blog", 3).get(function (result) {
+            loadBlogPosts: function () {
+                return Restangular.one("posts", 3).get(function (result) {
                     console.log("ok I am running the main query");
                     console.log(result);
                     return result;

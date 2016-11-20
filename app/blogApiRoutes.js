@@ -2,7 +2,7 @@ var express = require('express'),
 router = express.Router(),		// get an instance of the express Router
 BlogReader = require('./blogReader'),
 httpStatus = require('./httpStatus'),
-blogQuery = require('./queries/blogpost/getTheLastNBlogPostsQuery'),
+blogQuery = require('./bloggerApi/queries/getTheLastNBlogPostsQuery'),
 blogReader = new BlogReader();
 
 router.use(function (req, res, next) {
@@ -14,24 +14,39 @@ router.use(function (req, res, next) {
 router.get('/api', function (req, res) {
     res.json({
         message: 'Welcome to the gfentimen.com web API',
-        routes: '["/api/blogs", "/api/blog/:blog_id", ""]'
+        routes: '["/api/posts", "/api/posts/:post_id", ""]'
     });
 });
 
-router.route('/api/blog/:number')
-    .get(function (req, res) {
-        var numberToRetrieve = req.params.number;
-        console.log("getting the last " + numberToRetrieve + " most recent blogs" + numberToRetrieve);
-        if (numberToRetrieve === undefined)
-        {
-            res.status(httpStatus.BAD_REQUEST).json({ "message": "Please specifiy the number of blogs to retrieve"});
-        }
-        blogQuery.get(numberToRetrieve).then(function(result) {
-            res.status(httpStatus.OK).json(result);
-        }).catch(function(errorResult) {
-            res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResult);
-        });
+var getPosts = function(req, res, nextPageToken) {
+    var numberToRetrieve = req.params.number;
+    console.log("getting the last " + numberToRetrieve + " most recent blog posts");
+    if (numberToRetrieve === undefined)
+    {
+        res.status(httpStatus.BAD_REQUEST).json({ "message": "Please specifiy the number of blogs to retrieve"});
+    }
+
+    blogQuery.get(numberToRetrieve, nextPageToken).then(function(result) {
+        res.status(httpStatus.OK).json(result);
+    }).catch(function(errorResult) {
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResult);
     });
+};
+
+router.route('/api/posts/:number/nextPageToken/:nextPageToken')
+    .get(function (req, res) {
+        var nextPageToken = req.params.nextPageToken;
+        console.log("the next page token is: " + nextPageToken);
+
+        getPosts(req, res, nextPageToken);
+    });
+
+router.route('/api/posts/:number')
+    .get(function (req, res) {
+        getPosts(req, res);
+    });
+
+
 
 router.route('/api/blogs')
     .get(function (req, res) {
@@ -40,7 +55,7 @@ router.route('/api/blogs')
         // });
     });
 
-router.route('/api/blog/:blog_id')
+router.route('/api/posts/:post_id')
     .get(function (req, res) {
         console.log("getting blog" + req.params.blog_id);
         var blog = blogReader.getBlogById(req.params.blog_id, function (blog) {

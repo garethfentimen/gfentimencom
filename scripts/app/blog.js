@@ -22,7 +22,7 @@ angular
 				controller: 'blogMain',
 				resolve: {
 					latestBlogs: ['blogFactory', function(blogFactory) {
-                            return blogFactory.loadLatestEightBlogPosts();
+                            return blogFactory.loadBlogPosts();
 						}]
 				}
 			});
@@ -30,14 +30,19 @@ angular
 		RestangularProvider.setBaseUrl("/api");
 	}])
 
-    .controller('blogMain', ['$scope', '$sce', 'latestBlogs', function ($scope, $sce, latestBlogs) {
+    .controller('blogMain', ['$scope', 'latestBlogs', 'getNextBlogsService', function ($scope, latestBlogs, getNextBlogsService) {
 		
 		$scope.blogContent = "loading..";
         
         $scope.blogs = latestBlogs.items;
-		//$scope.mainContent = $sce.trustAsHtml(latestBlog.blogContent);
-		//$scope.blogTitle = latestBlog.blogTitle;
-		//$scope.publishedOn = latestBlog.publishedOn;
+
+		$scope.Token = latestBlogs.nextPageToken;
+
+		$scope.getNextBlogs = function(token) {
+			getNextBlogsService.get(function(blogs) {
+				$scope.blogs = blogs;
+			});
+		}
 
         $scope.formatDate = function (published) {
             return new Date(published).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });

@@ -1,19 +1,11 @@
 var feed = require("feed-read"),
-    blogRepository = require("./repositories/blogPostRepository"),
-    bloggerApiAllEntriesQuery = require("./bloggerApiInterface/queries/getTheLastNBlogPostsQuery");
+    blogRepository = require("./repositories/blogPostRepository");
 
 var blogReader = function () {
     this.blogRepository = new blogRepository();
 };
 
 blogReader.prototype = function () {
-
-    var retrieveAllBlogInfo = function (callback) {
-
-        bloggerApiAllEntriesQuery.get(function (result) {
-            callback(result);
-        });
-    };
 
     var findByKeyword = function (keyword, callback) {
 
@@ -60,10 +52,9 @@ blogReader.prototype = function () {
 
     return {
         getBlogById: retrieveBlogById,
-        getMostRecentBlog: retrieveMostRecentBlog,
-        getAllBlogInformation: retrieveAllBlogInfo
+        getMostRecentBlog: retrieveMostRecentBlog
     }
 
-} ();
+}();
 
 module.exports = blogReader;
