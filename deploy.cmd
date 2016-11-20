@@ -120,7 +120,7 @@ echo Execute Gulp production gulp
 IF EXIST "%DEPLOYMENT_TARGET%\gulpfile.js" (
     echo gulp file exists - attempting to build
     pushd "%DEPLOYMENT_TARGET%"
-    call .\node_modules\.bin\gulp --gulpfile gulpfile.js
+    call .\node_modules\.bin\gulp production --gulpfile gulpfile.js
     IF !ERRORLEVEL! NEQ 0 goto error
     popd
 )
