@@ -61,8 +61,7 @@
                 <h4>Archive</h4>
                 <div class="panel-body">
                     <ul ng-repeat="blog in blogs" class="list-unstyled">
-                        <li><a ng-click="getBlogWithTitle(blog.title)">{{blog.title}}</a></li>
-                        <li>{{blog.publishedDate}}</li>
+                        <li><a class="pointer-cursor" ng-click="getBlogWithId(blog.id)">{{blog.title}} {{formatDate(blog.published)}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -76,59 +75,60 @@
         
         <div class="pull-left col-lg-8">
             <div ng-repeat="blog in blogs">
-                <div class="col-md-12">
-                    <div class="post-heading panel">
-                        <h1 ng-bind="blog.title"></h1>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <hr>
-                    <!-- Date/Time -->
-                    <p>
-                        <span class="glyphicon glyphicon-time"></span> Posted on <span ng-bind="formatDate(blog.published)">
-                        </span>
-                        <span class="pull-right">by Gareth Fentimen</span>
-                    </p>
-                    <hr>
-                </div>
-                <div ng-bind-html="blog.content"></div>
-
-                <hr>
-
-                <div id="disqus_thread"></div>
-                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                <!-- Blog Comments -->
-                <!-- Comments Form -->
-                <!--<div class="well">
-                    <h4>Leave a Comment:</h4>
-                    <form role="form">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3"></textarea>
+                <div ng-hide="blog.visible !== undefined && !blog.visible">
+                    <div class="col-md-12">
+                        <div class="post-heading panel">
+                            <h1 ng-bind="blog.title"></h1>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>-->
-
-                <!-- Posted Comments -->
-                <!-- Comment -->
-                <!--<div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">
-                            Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                     </div>
-                </div>-->
-            </div>
+                    <div class="col-md-12">
+                        <hr>
+                        <!-- Date/Time -->
+                        <p>
+                            <span class="glyphicon glyphicon-time"></span> Posted on <span ng-bind="formatDate(blog.published)">
+                            </span>
+                            <span class="pull-right">by Gareth Fentimen</span>
+                        </p>
+                        <hr>
+                    </div>
+                    <div ng-bind-html="blog.content"></div>
 
+                    <hr>
+
+                    <div id="disqus_thread"></div>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                    <!-- Blog Comments -->
+                    <!-- Comments Form -->
+                    <!--<div class="well">
+                        <h4>Leave a Comment:</h4>
+                        <form role="form">
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>-->
+
+                    <!-- Posted Comments -->
+                    <!-- Comment -->
+                    <!--<div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="http://placehold.it/64x64" alt="">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                Start Bootstrap
+                                <small>August 25, 2014 at 9:30 PM</small>
+                            </h4>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </div>
+                    </div>-->
+                </div>
+            </div>
             <hr />
             <div class="col-md-12">
                 <div class="col-md-4"></div>
-                <div class="col-md-4 btn btn-primary" ng-click="getNextBlogs(blog.Token)">
+                <div class="col-md-4 btn btn-primary" ng-click="getNextBlogs()">
                     More..
                 </div>
             </div>

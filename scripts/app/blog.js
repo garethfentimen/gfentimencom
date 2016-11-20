@@ -38,10 +38,25 @@ angular
 
 		$scope.Token = latestBlogs.nextPageToken;
 
-		$scope.getNextBlogs = function(token) {
-			getNextBlogsService.get(function(blogs) {
-				$scope.blogs = blogs;
+		$scope.getNextBlogs = function() {
+			getNextBlogsService.get($scope.Token).then(function(blogs) {
+				console.log("got the next blogs");
+				for ( var i = 0, j = blogs.items.length; i < j; i++) {
+					$scope.blogs.push(blogs.items[i]);
+				}
+				$scope.Token = blogs.nextPageToken;
 			});
+		}
+
+		$scope.getBlogWithId = function(idRequested) {
+			var filteredBlogList = [];
+			for ( var i = 0, j = $scope.blogs.length; i < j; i++) {
+				var blogWithVisibility = $scope.blogs[i];
+				blogWithVisibility.visible = $scope.blogs[i].id === idRequested;
+				filteredBlogList.push(blogWithVisibility);
+			}
+
+			$scope.blogs = filteredBlogList;
 		}
 
         $scope.formatDate = function (published) {

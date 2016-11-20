@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 
 gulp.task('default', ['dep','app','css','fonts']);
 
-gulp.task('dev', ['dep','app','css','fonts']);
+gulp.task('production', ['dep','app-prod','css','fonts']);
 
 gulp.task('lint', function () {
     return gulp.src(['js/**/*.js'])
@@ -20,7 +20,15 @@ gulp.task('app', ['lint'], function() {
     return gulp.src(['scripts/app/*.js', 'scripts/queries/*.js'])
         .pipe(concat('app.js'))
         .pipe(gulp.dest('public/build/scripts'))
-        //.pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('public/build/scripts'));
+});
+
+gulp.task('app-prod', function() {
+    return gulp.src(['scripts/app/*.js', 'scripts/queries/*.js'])
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('public/build/scripts'))
+        .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('public/build/scripts'));
 });
@@ -38,7 +46,7 @@ gulp.task('dep', function() {
                                 'libs/angular-animate/angular-animate.js',
                                 'libs/restangular/dist/restangular.js',
                                 'libs/angular-loading-bar/build/loading-bar.js'])
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(concat('dep.min.js'))
         .pipe(gulp.dest('public/build/scripts'));
 });

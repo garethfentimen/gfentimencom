@@ -117,7 +117,7 @@ if EXIST "%DEPLOYMENT_TARGET%\bower.json" (
 
 :: 5. Install gulp and packages
 echo Execute Gulp production gulp file default
-IF EXIST "%DEPLOYMENT_TARGET%\productiongulpfile.js" (
+IF EXIST "%DEPLOYMENT_TARGET%\gulpfile.js production" (
     echo gulp file exists - attempting to build
     pushd "%DEPLOYMENT_TARGET%"
     call .\node_modules\.bin\gulp --gulpfile productiongulpfile.js
