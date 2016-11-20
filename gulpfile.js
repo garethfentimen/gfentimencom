@@ -17,7 +17,7 @@ gulp.task('lint', function () {
 });
 
 gulp.task('app', ['lint'], function() {
-    return gulp.src(['scripts/app/*.js', 'scripts/queries/*.js'])
+    return gulp.src(['scripts/**/*.js'])
         .pipe(concat('app.js'))
         .pipe(gulp.dest('public/build/scripts'))
         .pipe(rename({suffix: '.min'}))
@@ -25,7 +25,7 @@ gulp.task('app', ['lint'], function() {
 });
 
 gulp.task('app-prod', function() {
-    return gulp.src(['scripts/app/*.js', 'scripts/queries/*.js'])
+    return gulp.src(['scripts/**/*.js'])
         .pipe(concat('app.js'))
         .pipe(gulp.dest('public/build/scripts'))
         .pipe(uglify())
@@ -51,14 +51,14 @@ gulp.task('dep', function() {
 });
 
 gulp.task('dep-prod', function() {
-    return gulp.src(['libs/lodash/dist/lodash.js','libs/angular/angular.js',
-                                'libs/angular-ui-bootstrap-bower/ui-bootstrap.js',
-                                'libs/angular-route/angular-route.js',
-                                'libs/angular-sanitize/angular-sanitize.js',
-                                'libs/angular-animate/angular-animate.js',
-                                'libs/restangular/dist/restangular.js',
-                                'libs/angular-loading-bar/build/loading-bar.js'])
-        .pipe(uglify())
+    return gulp.src(['libs/lodash/lodash.js',
+                                'libs/angular/angular.min.js',		
+                                'libs/angular-ui-bootstrap-bower/ui-bootstrap.min.js',		
+                                'libs/angular-route/angular-route.min.js',		
+                                'libs/angular-sanitize/angular-sanitize.min.js',		
+                                'libs/angular-animate/angular-animate.min.js',		
+                                'libs/restangular/dist/restangular.min.js',
+                                'libs/angular-loading-bar/build/loading-bar.min.js'])
         .pipe(concat('dep.min.js'))
         .pipe(gulp.dest('public/build/scripts'));
 });
@@ -74,6 +74,8 @@ gulp.task('css', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('scripts/app/*.js', ['app']);
-  gulp.watch('styles/*.css', ['css']);
+  var watcher = gulp.watch('scripts/app/*.js', ['app']);
+  watcher.on('change', function(event) {
+    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+  });
 });
