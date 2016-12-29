@@ -22,7 +22,10 @@ var blogQuerier = (function () {
                 host: 'www.googleapis.com',
                 path: blogUrl(requestParameters),
                 port: 443,
-                method: "GET"
+                method: "GET",
+                headers: {
+                    "referer": "www.gfentimen.com/blog"
+                }
             };
 
             https.request(options, function (response) {

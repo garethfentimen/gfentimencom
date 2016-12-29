@@ -5,8 +5,6 @@ angular
         return {
             loadBlogPosts: function () {
                 return Restangular.one("posts", 3).get(function (result) {
-                    console.log("ok I am running the main query");
-                    console.log(result);
                     return result;
                     //if (result === null) {
                     //    //console.log("result of call was null", result);
