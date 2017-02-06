@@ -57,10 +57,22 @@ angular
 			}
 
 			$scope.blogs = filteredBlogList;
+			return filteredBlogList;
+		}
+
+		$scope.filterBlogWithIdToTop = function(idRequested) {
+			var filteredBlogList = $scope.getBlogWithId(idRequested);
+
+			for (var i = 0, j = $scope.blogs.length; i < j; i++) {
+				var blogWithVisibility = $scope.blogs[i];
+				blogWithVisibility.visible = $scope.blogs[i].id !== idRequested;
+				filteredBlogList.push(blogWithVisibility);
+			}
+
+			$scope.blogs = filteredBlogList;
 		}
 
         $scope.formatDate = function (published) {
             return new Date(published).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         }
-
 	}]);

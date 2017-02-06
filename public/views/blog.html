@@ -58,11 +58,24 @@
             <!--</div>-->
 
             <div class="well panel-heading">
-                <h4>Archive</h4>
-                <div class="panel-body">
-                    <ul ng-repeat="blog in blogs" class="list-unstyled">
-                        <li><a class="pointer-cursor" ng-click="getBlogWithId(blog.id)">{{blog.title}} {{formatDate(blog.published)}}</a></li>
-                    </ul>
+                <div class="panel-body tab-to-archive-main">
+                    
+                    <input id="recentTab" type="radio" name="tabs" checked>
+                    <label for="recentTab">Recent</label>
+
+                    <input id="archiveTab" type="radio" name="tabs">
+                    <label for="archiveTab">Archive</label>
+                        
+                    <div id="recentBlogs" class="tab-content">
+                        <div ng-repeat="blog in blogs" class="pointer-cursor">
+                            <a ng-click="filterBlogWithIdToTop(blog.id)">{{blog.title}}</a>
+                        </div>
+                    </div>
+
+                    <div id="archivedBlogs" class="tab-content">
+                        <div class="">
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Side Widget Well -->
