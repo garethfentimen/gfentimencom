@@ -1,7 +1,7 @@
 var blogQuerier = require("../blogQuerier");
 
-var getTheLastNBlogPostsQuery = function () {
-	return {
+var getTheLastNArchivedBlogPostsQuery = function () {
+    return {
 		get: function (number, nextPageToken) {
 			return new Promise(function(resolve, reject) {
 				
@@ -22,4 +22,4 @@ var getTheLastNBlogPostsQuery = function () {
 	}
 };
 
-module.exports = getTheLastNBlogPostsQuery;
+module.exports = getTheLastNArchivedBlogPostsQuery;

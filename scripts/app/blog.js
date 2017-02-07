@@ -30,7 +30,7 @@ angular
 		RestangularProvider.setBaseUrl("/api");
 	}])
 
-    .controller('blogMain', ['$scope', 'latestBlogs', 'getNextBlogsService', function ($scope, latestBlogs, getNextBlogsService) {
+    .controller('blogMain', ['$scope', 'latestBlogs', 'getNextBlogsService', 'getArchivedBlogsService', function ($scope, latestBlogs, getNextBlogsService, getArchivedBlogsService) {
 		
 		$scope.blogContent = "loading..";
         
@@ -75,4 +75,8 @@ angular
         $scope.formatDate = function (published) {
             return new Date(published).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         }
+
+		$scope.getArchivedBlogs = function() {
+			$scope.blogYears = getArchivedBlogsService.get();
+		}
 	}]);
