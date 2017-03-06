@@ -2,4 +2,5 @@ var getTheLastNBlogPostsQuery = require("../../app/bloggerApi/queries/getTheLast
     result = true;
 
 beforeEach(function () {
+    
 });

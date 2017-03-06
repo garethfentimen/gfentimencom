@@ -2,7 +2,7 @@ var blogQuerier = require("../blogQuerier");
 
 var getTheLastNArchivedBlogPostsQuery = function () {
     return {
-		get: function (number, nextPageToken) {
+		get: function (number, year, nextPageToken) {
 			return new Promise(function(resolve, reject) {
 				
 				var filter = [];

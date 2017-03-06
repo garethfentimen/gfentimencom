@@ -10,9 +10,6 @@ mockRequire('https', {
     end: function() {}
 });
 
-beforeEach(function () {
-});
-
 describe("When there is one filter given", function () {
     beforeEach(function (done) {
         requestParameters = ["maxResults=10"];

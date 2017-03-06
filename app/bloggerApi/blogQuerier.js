@@ -1,6 +1,6 @@
 var https = require('https');
 
-var blogQuerier = (function () {
+module.exports = function () {
     var apiKey = "key=" + process.env.googleBloggerAPIKey;
 
     var blogUrl = function (requestParameters) {
@@ -43,6 +43,4 @@ var blogQuerier = (function () {
             }).end();
         }
     }
-})();
-
-module.exports = blogQuerier;
+}();
