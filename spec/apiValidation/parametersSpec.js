@@ -31,6 +31,24 @@ describe("When an invalid number is provided", function() {
     });
 });
 
+describe("When no parameter name is provided", function() {
+    beforeEach(function() {
+        var req = {
+            params: { number: "3" }
+        };
+
+        result = parameterValidation.checkNumber(req, res);
+    });
+
+    it("Should not have called the API to report an error", function() {
+        expect(res.status).not.toHaveBeenCalled();
+    });
+
+    it("Should assume that it is number parameter", function() {
+        expect(result).toBe(3);
+    });
+});
+
 describe("When an valid number is provided", function() {
     beforeEach(function() {
         var req = {
