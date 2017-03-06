@@ -50,13 +50,12 @@ angular
 
 		$scope.getBlogWithId = function(idRequested) {
 			var filteredBlogList = [];
-			for ( var i = 0, j = $scope.blogs.length; i < j; i++) {
-				var blogWithVisibility = $scope.blogs[i];
-				blogWithVisibility.visible = $scope.blogs[i].id === idRequested;
-				filteredBlogList.push(blogWithVisibility);
-			}
+			angular.forEach($scope.blogs, function(blog, blogId) {
+				if (blog.id === idRequested) {
+					filteredBlogList.push(blog);
+				}
+			});
 
-			$scope.blogs = filteredBlogList;
 			return filteredBlogList;
 		}
 
@@ -64,9 +63,10 @@ angular
 			var filteredBlogList = $scope.getBlogWithId(idRequested);
 
 			for (var i = 0, j = $scope.blogs.length; i < j; i++) {
-				var blogWithVisibility = $scope.blogs[i];
-				blogWithVisibility.visible = $scope.blogs[i].id !== idRequested;
-				filteredBlogList.push(blogWithVisibility);
+				if ($scope.blogs[i].id !== idRequested)
+				{
+					filteredBlogList.push($scope.blogs[i]);
+				}
 			}
 
 			$scope.blogs = filteredBlogList;
