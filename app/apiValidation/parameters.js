@@ -13,6 +13,13 @@ module.exports = function () {
                 res.status(httpStatus.BAD_REQUEST).json({ "message": "Please specifiy the number of blogs to retrieve"});
             }
             return numberToRetrieve;
+        },
+        checkYear: function(req, res, parameterName) {
+            if (!parameterName) { 
+                parameterName = "year"; 
+            }
+
+            return this.checkNumber(req, res, parameterName);
         }
     }
 }();

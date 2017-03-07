@@ -30,7 +30,8 @@ angular
 		RestangularProvider.setBaseUrl("/api");
 	}])
 
-    .controller('blogMain', ['$scope', 'latestBlogs', 'getNextBlogsService', 'getArchivedBlogsService', function ($scope, latestBlogs, getNextBlogsService, getArchivedBlogsService) {
+    .controller('blogMain', ['$scope', 'latestBlogs', 'getNextBlogsService', 'getArchivedBlogsService', 'archivedBlogPromisesService', 
+					function ($scope, latestBlogs, getNextBlogsService, getArchivedBlogsService, archivedBlogPromisesService) {
 		
 		$scope.blogContent = "loading..";
         
@@ -76,7 +77,19 @@ angular
             return new Date(published).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         }
 
-		$scope.getArchivedBlogs = function() {
+		$scope.formatShortDate = function (published) {
+            return new Date(published).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+		$scope.getArchivedBlogPromises = function() {
 			$scope.blogYears = getArchivedBlogsService.get();
+		}
+
+		$scope.resolveArchivedBlogPromises = function(blogYear) {
+			$scope.showArchiveLoader = true;
+			archivedBlogPromisesService.resolve(blogYear.year, blogYear.archivedBlogPromise, function (items) {
+				blogYear.archivedBlogs = items;
+				$scope.showArchiveLoader = false;
+			});
 		}
 	}]);

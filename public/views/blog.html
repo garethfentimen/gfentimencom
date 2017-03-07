@@ -64,7 +64,7 @@
                     <label for="recentTab">Recent</label>
 
                     <input id="archiveTab" type="radio" name="tabs">
-                    <label for="archiveTab">Archive</label>
+                    <label for="archiveTab" ng-click="getArchivedBlogPromises()">Archive</label>
                         
                     <div id="recentBlogs" class="tab-content">
                         <div ng-repeat="blog in blogs" class="pointer-cursor">
@@ -72,11 +72,15 @@
                         </div>
                     </div>
 
-                    <div id="archivedBlogs" class="tab-content" ng-click="getArchivedBlogs">
+                    <div id="archivedBlogs" class="tab-content">
+                        <div ng-show="showArchiveLoader">
+                            loading... please wait
+                        </div>
                         <div ng-repeat="blogYear in blogYears" class="pointer-cursor">
-                            <h4>{{blogYear.year}}</h4>
+                            <a href="javascript:void(0)" ng-click="resolveArchivedBlogPromises(blogYear)"><h4>{{blogYear.year}}</h4></a>
                             <div ng-repeat="archivedBlog in blogYear.archivedBlogs" class="pointer-cursor">
-                                <a ng-click="getBlogWithIdToTop(archivedBlog.id)">{{archivedBlog.title}}</a>
+                                <a ng-click="filterBlogWithIdToTop(archivedBlog.blog.id)">{{archivedBlog.title}}</a>
+                                <div><span>{{formatShortDate(archivedBlog.published)}}</span></div>
                             </div>
                         </div>
                     </div>

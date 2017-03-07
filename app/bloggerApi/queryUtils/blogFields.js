@@ -18,7 +18,7 @@ module.exports = function () {
                 }
             }
 
-            return "fields=items(" + encodeURIComponent(params) + ")&";
+            return "fields=items(" + encodeURIComponent(params) + ")";
         }
     };
 }();

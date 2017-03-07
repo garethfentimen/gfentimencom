@@ -19,7 +19,8 @@ router.get('/api', function (req, res) {
     });
 });
 
-var getPosts = function(req, res, postsToRetrieve, nextPageToken) {
+var getPosts = function(req, res, nextPageToken) {
+    var postsToRetrieve = parameterValidation.checkNumber(req, res);
     blogQuery.get(postsToRetrieve, nextPageToken).then(function(result) {
         res.status(httpStatus.OK).json(result);
     }).catch(function(errorResult) {
@@ -30,19 +31,19 @@ var getPosts = function(req, res, postsToRetrieve, nextPageToken) {
 router.route('/api/posts/:number/nextPageToken/:nextPageToken')
     .get(function (req, res) {
         var nextPageToken = req.params.nextPageToken;
-        var postsToRetrieve = parameterValidation.checkNumber(req, res);
-        getPosts(req, res, postsToRetrieve, nextPageToken);
+        getPosts(req, res, nextPageToken);
     });
 
 router.route('/api/posts/:number')
     .get(function (req, res) {
-        var postsToRetrieve = parameterValidation.checkNumber(req, res);
-        getPosts(req, res, postsToRetrieve);
+        getPosts(req, res);
     });
 
 var getArchivedPosts = function(req, res, nextPageToken) {
-    var postsToRetrieve = parameterValidation.checkNumber(req, res);
-    archivedPostsQuery.get(numberToRetrieve, nextPageToken).then(function(result) {
+    var postsToRetrieve = parameterValidation.checkNumber(req, res),
+        year = parameterValidation.checkYear(req, res);
+
+    archivedPostsQuery.get(postsToRetrieve, year, nextPageToken).then(function(result) {
         res.status(httpStatus.OK).json(result);
     }).catch(function(errorResult) {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResult);
@@ -51,14 +52,12 @@ var getArchivedPosts = function(req, res, nextPageToken) {
 
 router.route('/api/archivedposts/:number/year/:year')
     .get(function (req, res) {
-        parameterValidation.checkNumber(req, res);
         getArchivedPosts(req, res);
     });
 
 router.route('/api/archivedposts/:number/year/:year/nextPageToken/:nextPageToken')
     .get(function (req, res) {
-        parameterValidation.checkNumber(req, res);
-        getArchivedPosts(req, res);
+        getArchivedPosts(req, res, req.params.nextPageToken);
     });
 
 router.route('/api/posts/:post_id')
