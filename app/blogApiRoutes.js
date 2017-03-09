@@ -56,14 +56,12 @@ router.route('/api/archivedposts/:number/year/:year')
 
 router.route('/api/archivedposts/:number/year/:year/nextPageToken/:nextPageToken')
     .get(function (req, res) {
-        console.log("next page", req.params.nextPageToken);
         getArchivedPosts(req, res, req.params.nextPageToken);
     });
 
 router.route('/api/post/:post_id')
     .get(function (req, res) {
         var postId = parameterValidation.checkNumber(req, res, "post_id");
-        console.log("postId", postId);
         getBlogPostById.get(postId).then(function(blog) {
             res.json(blog);
         }).catch(function(errorResult) {
