@@ -8,13 +8,13 @@ module.exports = function () {
 				var filter = [];
 				
 				filter.push("maxResults=" + number);
-				if (nextPageToken !== undefined)
+				if (nextPageToken)
 				{
 					filter.push("pageToken=" + nextPageToken);
 				}
 
 				filter.push("orderBy=published");
-				blogQuerier.request(filter, function (response) {
+				blogQuerier.request(filter, null, function (response) {
 					resolve(JSON.parse(response));
 				});
 			});

@@ -1,11 +1,10 @@
 var express = require('express'),
 router = express.Router(),
-BlogReader = require('./blogReader'),
 httpStatus = require('./httpStatus'),
 blogQuery = require('./bloggerApi/queries/getTheLastNBlogPostsQuery'),
 archivedPostsQuery = require('./bloggerApi/queries/getTheLastNArchivedBlogPostsQuery'),
-parameterValidation = require('./apiValidation/parameters'),
-blogReader = new BlogReader();
+getBlogPostById = require('./bloggerApi/queries/blogPosts/getBlogPostById'),
+parameterValidation = require('./apiValidation/parameters');
 
 router.use(function (req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
@@ -60,11 +59,14 @@ router.route('/api/archivedposts/:number/year/:year/nextPageToken/:nextPageToken
         getArchivedPosts(req, res, req.params.nextPageToken);
     });
 
-router.route('/api/posts/:post_id')
+router.route('/api/post/:post_id')
     .get(function (req, res) {
-        console.log("getting blog" + req.params.blog_id);
-        var blog = blogReader.getBlogById(req.params.blog_id, function (blog) {
+        var postId = parameterValidation.checkNumber(req, res, "post_id");
+        console.log("postId", postId);
+        getBlogPostById.get(postId).then(function(blog) {
             res.json(blog);
+        }).catch(function(errorResult) {
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResult);
         });
     });
 

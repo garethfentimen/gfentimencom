@@ -79,7 +79,7 @@
                         <div ng-repeat="blogYear in blogYears" class="pointer-cursor">
                             <a href="javascript:void(0)" ng-click="resolveArchivedBlogPromises(blogYear)"><h4>{{blogYear.year}}</h4></a>
                             <div ng-repeat="archivedBlog in blogYear.archivedBlogs" class="pointer-cursor">
-                                <a ng-click="filterBlogWithIdToTop(archivedBlog.blog.id)">{{archivedBlog.title}}</a>
+                                <a ng-click="filterBlogWithIdToTop(archivedBlog.id)">{{archivedBlog.title}}</a>
                                 <div><span>{{formatShortDate(archivedBlog.published)}}</span></div>
                             </div>
                         </div>

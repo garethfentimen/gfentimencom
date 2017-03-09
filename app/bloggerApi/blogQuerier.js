@@ -1,26 +1,36 @@
 var https = require('https');
 
 module.exports = function () {
-    var apiKey = "key=" + process.env.googleBloggerAPIKey;
+    var apiKey = "&key=" + process.env.googleBloggerAPIKey;
 
-    var blogUrl = function (requestParameters) {
+    var blogUrl = function (requestParameters, postId) {
         var blogId = "3311430580289688408";
 
-        var params = "";
-        var noParams = requestParameters.length;
+        var params = "",
+            noParams = requestParameters.length,
+            questionIfHasParams = noParams > 0 ? "?" : "";
+
         for (var i = 0; i < noParams; i++) {
-            params += requestParameters[i] + "&";
+            params += requestParameters[i];
+            if (i < (noParams - 1))
+            {
+                params += "&";
+            }
         }
 
-        return '/blogger/v3/blogs/' + blogId + '/posts?' + params + apiKey;
+        if (postId) {
+            return '/blogger/v3/blogs/' + blogId + '/posts/' + postId + questionIfHasParams + params + apiKey;
+        } else {
+            return '/blogger/v3/blogs/' + blogId + '/posts' + questionIfHasParams + params + apiKey;
+        }
     };
 
     return {
-        request: function (requestParameters, callback) {
+        request: function (requestParameters, postId, callback) {
 
             var options = {
                 host: 'www.googleapis.com',
-                path: blogUrl(requestParameters),
+                path: blogUrl(requestParameters, postId),
                 port: 443,
                 method: "GET",
                 headers: {
@@ -28,6 +38,7 @@ module.exports = function () {
                 }
             };
 
+            console.log("path: ", options.path);
             https.request(options, function (response) {
                 var str = '';
 

@@ -62,3 +62,18 @@ describe("When an valid number is provided", function() {
         expect(result).toBe(3);
     });
 });
+
+describe("When the number is more than the max safe integer", function() {
+    beforeEach(function() {
+        // pass 16 digits
+        var req = {
+            params: { number: "9876543219999999" }
+        };
+
+        result = parameterValidation.checkNumber(req, {}, "number");
+    });
+
+    it("Should return as a string", function() {
+        expect(result).toBe("9876543219999999");
+    });
+});

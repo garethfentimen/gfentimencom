@@ -30,8 +30,8 @@ angular
 		RestangularProvider.setBaseUrl("/api");
 	}])
 
-    .controller('blogMain', ['$scope', 'latestBlogs', 'getNextBlogsService', 'getArchivedBlogsService', 'archivedBlogPromisesService', 
-					function ($scope, latestBlogs, getNextBlogsService, getArchivedBlogsService, archivedBlogPromisesService) {
+    .controller('blogMain', ['$scope', 'latestBlogs', 'getNextBlogsService', 'getArchivedBlogsService', 'archivedBlogPromisesService', 'getPostByIdService', 
+					function ($scope, latestBlogs, getNextBlogsService, getArchivedBlogsService, archivedBlogPromisesService, getPostByIdService) {
 		
 		$scope.blogContent = "loading..";
         
@@ -49,7 +49,7 @@ angular
 			});
 		}
 
-		$scope.getBlogWithId = function(idRequested) {
+		$scope.getBlogWithId = function(idRequested, callback) {
 			var filteredBlogList = [];
 			angular.forEach($scope.blogs, function(blog, blogId) {
 				if (blog.id === idRequested) {
@@ -57,20 +57,38 @@ angular
 				}
 			});
 
-			return filteredBlogList;
+			if (filteredBlogList.length === 0) {
+				console.log("idRequested", idRequested);
+				// don't have this blog yet so find it
+				getPostByIdService.get(idRequested).then(function(blog) {
+					
+					if (!blog.error) {
+						$scope.blogs.push(blog);
+						filteredBlogList.push(blog);
+					} else {
+						console.error(blog.error);
+					}
+					return callback(filteredBlogList);
+				}).catch(function(error) {
+					console.error("there was an error", error);
+				});
+			} else {
+				return callback(filteredBlogList);
+			}
 		}
 
 		$scope.filterBlogWithIdToTop = function(idRequested) {
-			var filteredBlogList = $scope.getBlogWithId(idRequested);
-
-			for (var i = 0, j = $scope.blogs.length; i < j; i++) {
-				if ($scope.blogs[i].id !== idRequested)
-				{
-					filteredBlogList.push($scope.blogs[i]);
+			$scope.getBlogWithId(idRequested, function(filteredBlogList) {
+				
+				for (var i = 0, j = $scope.blogs.length; i < j; i++) {
+					if ($scope.blogs[i].id !== idRequested)
+					{
+						filteredBlogList.push($scope.blogs[i]);
+					}
 				}
-			}
 
-			$scope.blogs = filteredBlogList;
+				$scope.blogs = filteredBlogList;
+			});
 		}
 
         $scope.formatDate = function (published) {

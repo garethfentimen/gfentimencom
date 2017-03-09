@@ -12,8 +12,8 @@ describe("When there are no blog fields sent", function () {
         expect(result).toEqual("");
     });
 
-    it("Should respond with empty string", function () {
-        result = generateBlogFields.generate("");
+    it("Should respond with empty string and is a posts request", function () {
+        result = generateBlogFields.generate("", true);
         expect(result).toEqual("");
     });
 });
@@ -25,9 +25,23 @@ describe("When there is one blog field", function () {
     });
 });
 
+describe("When there is one blog field and it is a posts request", function () {
+    it("Should respond with empty string", function () {
+        result = generateBlogFields.generate("blog", true);
+        expect(result).toEqual("fields=blog");
+    });
+});
+
 describe("When there are two blog fields", function () {
     it("Should respond with empty string", function () {
         result = generateBlogFields.generate("blog, published");
         expect(result).toEqual("fields=items(blog%2Cpublished)");
+    });
+});
+
+describe("When there are two blog fields and this is a post", function () {
+    it("Should respond with empty string", function () {
+        result = generateBlogFields.generate("blog, published", true);
+        expect(result).toEqual("fields=blog%2Cpublished");
     });
 });

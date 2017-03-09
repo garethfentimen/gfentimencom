@@ -1,7 +1,7 @@
 module.exports = function () {
     
     return {
-        generate : function(fields) {
+        generate : function(fields, isPosts) {
             if (!fields) {
                 return "";
             }
@@ -18,7 +18,11 @@ module.exports = function () {
                 }
             }
 
-            return "fields=items(" + encodeURIComponent(params) + ")";
+            if (isPosts) {
+                return "fields=" + encodeURIComponent(params);
+            } else {
+                return "fields=items(" + encodeURIComponent(params) + ")";
+            }
         }
     };
 }();

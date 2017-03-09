@@ -7,7 +7,13 @@ module.exports = function () {
                 parameterName = "number"; 
             }
             
-            var numberToRetrieve = parseInt(req.params[parameterName]);
+            var number = req.params[parameterName];
+            if (number >= Number.MAX_SAFE_INTEGER) 
+            {
+                return number;
+            }
+
+            var numberToRetrieve = parseInt(number);
             if (numberToRetrieve === undefined || isNaN(numberToRetrieve))
             {
                 res.status(httpStatus.BAD_REQUEST).json({ "message": "Please specifiy the number of blogs to retrieve"});
