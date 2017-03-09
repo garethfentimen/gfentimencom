@@ -56,6 +56,7 @@ router.route('/api/archivedposts/:number/year/:year')
 
 router.route('/api/archivedposts/:number/year/:year/nextPageToken/:nextPageToken')
     .get(function (req, res) {
+        console.log("next page", req.params.nextPageToken);
         getArchivedPosts(req, res, req.params.nextPageToken);
     });
 

@@ -12,36 +12,36 @@ describe("When there are no blog fields sent", function () {
         expect(result).toEqual("");
     });
 
-    it("Should respond with empty string and is a posts request", function () {
-        result = generateBlogFields.generate("", true);
+    it("Should respond with empty string and there are no fields requested", function () {
+        result = generateBlogFields.generate("", "");
         expect(result).toEqual("");
     });
 });
 
-describe("When there is one blog field", function () {
-    it("Should respond with empty string", function () {
-        result = generateBlogFields.generate("blog");
+describe("When there is one item sub field", function () {
+    it("Should respond with one sub field", function () {
+        result = generateBlogFields.generate("blog", null);
         expect(result).toEqual("fields=items(blog)");
     });
 });
 
-describe("When there is one blog field and it is a posts request", function () {
+describe("When there is no item sub field and there is one blog field", function () {
     it("Should respond with empty string", function () {
-        result = generateBlogFields.generate("blog", true);
+        result = generateBlogFields.generate(null, "blog");
         expect(result).toEqual("fields=blog");
     });
 });
 
-describe("When there are two blog fields", function () {
-    it("Should respond with empty string", function () {
+describe("When there are two item sub fields", function () {
+    it("Should respond with item sub fields", function () {
         result = generateBlogFields.generate("blog, published");
         expect(result).toEqual("fields=items(blog%2Cpublished)");
     });
 });
 
-describe("When there are two blog fields and this is a post", function () {
-    it("Should respond with empty string", function () {
-        result = generateBlogFields.generate("blog, published", true);
-        expect(result).toEqual("fields=blog%2Cpublished");
+describe("When there are two item sub fields and there is one blog field", function () {
+    it("Should respond with item sub fields and blog fields", function () {
+        result = generateBlogFields.generate("blog, published", "nextPageToken");
+        expect(result).toEqual("fields=items(blog%2Cpublished)%2CnextPageToken");
     });
 });

@@ -22,13 +22,17 @@ angular
                     archivedBlogsByYear = result.items;
                     if (result.nextPageToken)
                     {
-                        getArchivedBlogPromise(year, result.nextPageToken).get(function(result) {
-                            archivedBlogsByYear.addRange(result.items);
+                        getArchivedBlogPromise(year, result.nextPageToken).get().then(function(result2) {
+                            if (result2.items) {
+                                archivedBlogsByYear.addRange(result2.items);
+                            }
                             
-                            if (result.nextPageToken)
+                            if (result2.nextPageToken)
                             {
-                                getArchivedBlogPromise(year, result.nextPageToken).get(function(result) {
-                                    archivedBlogsByYear.addRange(result.items);
+                                getArchivedBlogPromise(year, result2.nextPageToken).get().then(function(result3) {
+                                    if (result3.items) {
+                                        archivedBlogsByYear.addRange(result3.items);
+                                    }
                                     return callback(archivedBlogsByYear);
                                 });
                             } else {

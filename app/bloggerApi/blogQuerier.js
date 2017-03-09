@@ -38,7 +38,7 @@ module.exports = function () {
                 }
             };
 
-            console.log("path: ", options.path);
+            //console.log("path: ", options.path);
             https.request(options, function (response) {
                 var str = '';
 

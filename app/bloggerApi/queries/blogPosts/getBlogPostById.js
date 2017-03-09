@@ -7,9 +7,8 @@ module.exports = function () {
 			return new Promise(function(resolve, reject) {
 				var filter = [];
 
-				filter.push(blogFields.generate("content,id,published,title", true));
+				filter.push(blogFields.generate("", "content,id,published,title"));
                 
-				console.log("id", id);
 				blogQuerier.request(filter, id, function (response) {
 					resolve(JSON.parse(response));
 				});
