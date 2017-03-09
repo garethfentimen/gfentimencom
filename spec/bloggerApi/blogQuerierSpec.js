@@ -10,9 +10,6 @@ mockRequire('https', {
     end: function() {}
 });
 
-beforeEach(function () {
-});
-
 describe("When there is one filter given", function () {
     beforeEach(function (done) {
         requestParameters = ["maxResults=10"];
@@ -32,7 +29,7 @@ describe("When there is one filter given", function () {
             }
         });
 
-        blogQuerier.request(requestParameters, function (response) {
+        blogQuerier.request(requestParameters, null, function (response) {
             // could not get into here, because no emit event
         });
     });
@@ -68,7 +65,7 @@ describe("When there are two filters given", function () {
             }
         });
 
-        blogQuerier.request(requestParameters, function (response) {
+        blogQuerier.request(requestParameters, null, function (response) {
             // could not get into here, because no emit event
         });
     });
@@ -80,5 +77,42 @@ describe("When there are two filters given", function () {
     it("Should have created a valid request path", function () {
         expect(result.options).not.toEqual(undefined);
         expect(result.options.path).toEqual("/blogger/v3/blogs/3311430580289688408/posts?maxResults=10&pageToken=CiAKGjBpNDd2Nmp2Zml2cXRwY&key=undefined");
+    });
+});
+
+describe("When there is a post id and no filters", function () {
+    beforeEach(function (done) {
+        requestParameters = [];
+        var postId = 1;
+
+        spyOn(https, "request").and.callFake(function(options, responseCallback) {
+            result.options = options;
+            if (options.path !== "")
+            {   
+                responseCallback.on = function(type, callback) {
+                    return callback("json data");
+                };
+
+                responseCallback.end = function() {
+                    result.str = "json data";
+                    done();
+                };             
+                
+                return responseCallback;
+            }
+        });
+
+        blogQuerier.request(requestParameters, postId, function (response) {
+            // could not get into here, because no emit event
+        });
+    });
+
+    it("Should respond with some json data", function () {
+        expect(result.str).toEqual("json data");
+    });
+
+    it("Should have created a valid request path", function () {
+        expect(result.options).not.toEqual(undefined);
+        expect(result.options.path).toEqual("/blogger/v3/blogs/3311430580289688408/posts/1&key=undefined");
     });
 });

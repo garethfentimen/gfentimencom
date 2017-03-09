@@ -4,7 +4,7 @@
         <div class="col-md-4 pull-right">
 
             <!-- Blog Search Well -->
-            <div class="well">
+            <!--<div class="well">
                 <h4>Blog Search</h4>
                 <div class="input-group">
                     <input type="text" class="form-control">
@@ -14,8 +14,7 @@
                         </button>
                     </span>
                 </div>
-                <!-- /.input-group -->
-            </div>
+            </div>-->
 
             <!-- Blog Categories Well -->
             <!--<div class="well">
@@ -58,11 +57,36 @@
             <!--</div>-->
 
             <div class="well panel-heading">
-                <h4>Archive</h4>
-                <div class="panel-body">
-                    <ul ng-repeat="blog in blogs" class="list-unstyled">
-                        <li><a class="pointer-cursor" ng-click="getBlogWithId(blog.id)">{{blog.title}} {{formatDate(blog.published)}}</a></li>
-                    </ul>
+                <div class="panel-body tab-to-archive-main">
+                    
+                    <input id="recentTab" type="radio" name="tabs" checked>
+                    <label for="recentTab">Recent</label>
+
+                    <input id="archiveTab" type="radio" name="tabs">
+                    <label for="archiveTab" ng-click="getArchivedBlogPromises()">Archive</label>
+                        
+                    <div id="recentBlogs" class="tab-content">
+                        <div ng-repeat="blog in blogs" class="pointer-cursor">
+                            <a ng-click="filterBlogWithIdToTop(blog.id)">{{blog.title}}</a>
+                        </div>
+                    </div>
+
+                    <div id="archivedBlogs" class="tab-content">
+                        <div ng-repeat="blogYear in blogYears" class="pointer-cursor">
+                            <div ng-show="blogYear.showArchiveLoader">
+                                loading... please wait
+                            </div>
+                            <a href="javascript:void(0)" ng-click="resolveArchivedBlogPromises(blogYear)"><h4 class="text-center">{{blogYear.year}}</h4></a>
+                            <div bg-show="blogYear.showArchivedPosts" ng-repeat="archivedBlog in blogYear.archivedBlogs" class="pointer-cursor">
+                                <div class="text-center">
+                                    <span class="small">{{formatShortDate(archivedBlog.published)}}</span>
+                                </div>
+                                <div class="text-center">
+                                    <a ng-click="filterBlogWithIdToTop(archivedBlog.id)">{{archivedBlog.title}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Side Widget Well -->
@@ -75,7 +99,7 @@
         
         <div class="pull-left col-lg-8">
             <div ng-repeat="blog in blogs">
-                <div ng-hide="blog.visible !== undefined && !blog.visible">
+                <div>
                     <div class="col-md-12">
                         <div class="post-heading panel">
                             <h1 ng-bind="blog.title"></h1>

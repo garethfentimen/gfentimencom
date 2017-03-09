@@ -30,7 +30,8 @@ angular
 		RestangularProvider.setBaseUrl("/api");
 	}])
 
-    .controller('blogMain', ['$scope', 'latestBlogs', 'getNextBlogsService', function ($scope, latestBlogs, getNextBlogsService) {
+    .controller('blogMain', ['$scope', 'latestBlogs', 'getNextBlogsService', 'getArchivedBlogsService', 'archivedBlogPromisesService', 'getPostByIdService', 
+					function ($scope, latestBlogs, getNextBlogsService, getArchivedBlogsService, archivedBlogPromisesService, getPostByIdService) {
 		
 		$scope.blogContent = "loading..";
         
@@ -48,19 +49,72 @@ angular
 			});
 		}
 
-		$scope.getBlogWithId = function(idRequested) {
+		$scope.getBlogWithId = function(idRequested, callback) {
 			var filteredBlogList = [];
-			for ( var i = 0, j = $scope.blogs.length; i < j; i++) {
-				var blogWithVisibility = $scope.blogs[i];
-				blogWithVisibility.visible = $scope.blogs[i].id === idRequested;
-				filteredBlogList.push(blogWithVisibility);
-			}
+			angular.forEach($scope.blogs, function(blog, blogId) {
+				if (blog.id === idRequested) {
+					filteredBlogList.push(blog);
+				}
+			});
 
-			$scope.blogs = filteredBlogList;
+			if (filteredBlogList.length === 0) {
+				// don't have this blog yet so find it
+				getPostByIdService.get(idRequested).then(function(blog) {
+					
+					if (!blog.error) {
+						$scope.blogs.push(blog);
+						filteredBlogList.push(blog);
+					} else {
+						console.error(blog.error);
+					}
+					return callback(filteredBlogList);
+				}).catch(function(error) {
+					console.error("there was an error", error);
+				});
+			} else {
+				return callback(filteredBlogList);
+			}
+		}
+
+		$scope.filterBlogWithIdToTop = function(idRequested) {
+			$scope.getBlogWithId(idRequested, function(filteredBlogList) {
+				
+				for (var i = 0, j = $scope.blogs.length; i < j; i++) {
+					if ($scope.blogs[i].id !== idRequested)
+					{
+						filteredBlogList.push($scope.blogs[i]);
+					}
+				}
+
+				$scope.blogs = filteredBlogList;
+			});
 		}
 
         $scope.formatDate = function (published) {
             return new Date(published).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         }
 
+		$scope.formatShortDate = function (published) {
+            return new Date(published).toLocaleDateString('en-GB', { month: 'long', day: 'numeric' });
+        }
+
+		$scope.getArchivedBlogPromises = function() {
+			$scope.blogYears = getArchivedBlogsService.get();
+		}
+
+		$scope.resolveArchivedBlogPromises = function(blogYear) {
+			if (blogYear.archivedBlogs && blogYear.archivedBlogs.length > 0)
+			{
+				blogYear.archivedBlogs = [];
+				blogYear.showArchivedPosts = false;
+				return;
+			} 
+
+			blogYear.showArchiveLoader = true;
+			archivedBlogPromisesService.resolve(blogYear.year, blogYear.archivedBlogPromise, function (items) {
+				blogYear.archivedBlogs = items;
+				blogYear.showArchiveLoader = false;
+				blogYear.showArchivedPosts = false;
+			});
+		}
 	}]);

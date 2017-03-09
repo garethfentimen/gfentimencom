@@ -1,12 +1,12 @@
 var express = require('express'),
-router = express.Router(),		// get an instance of the express Router
-BlogReader = require('./blogReader'),
+router = express.Router(),
 httpStatus = require('./httpStatus'),
 blogQuery = require('./bloggerApi/queries/getTheLastNBlogPostsQuery'),
-blogReader = new BlogReader();
+archivedPostsQuery = require('./bloggerApi/queries/getTheLastNArchivedBlogPostsQuery'),
+getBlogPostById = require('./bloggerApi/queries/blogPosts/getBlogPostById'),
+parameterValidation = require('./apiValidation/parameters');
 
 router.use(function (req, res, next) {
-    //console.log('Something is happening.');
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -14,19 +14,13 @@ router.use(function (req, res, next) {
 router.get('/api', function (req, res) {
     res.json({
         message: 'Welcome to the gfentimen.com web API',
-        routes: '["/api/posts", "/api/posts/:post_id", ""]'
+        routes: '["/api/posts", "/api/posts/:post_id", "/api/posts/:number", "/api/posts/:number/nextPageToken/:nextPageToken", "/api/archivedposts/:number/year/:year"]'
     });
 });
 
 var getPosts = function(req, res, nextPageToken) {
-    var numberToRetrieve = req.params.number;
-    console.log("getting the last " + numberToRetrieve + " most recent blog posts");
-    if (numberToRetrieve === undefined)
-    {
-        res.status(httpStatus.BAD_REQUEST).json({ "message": "Please specifiy the number of blogs to retrieve"});
-    }
-
-    blogQuery.get(numberToRetrieve, nextPageToken).then(function(result) {
+    var postsToRetrieve = parameterValidation.checkNumber(req, res);
+    blogQuery.get(postsToRetrieve, nextPageToken).then(function(result) {
         res.status(httpStatus.OK).json(result);
     }).catch(function(errorResult) {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResult);
@@ -36,8 +30,6 @@ var getPosts = function(req, res, nextPageToken) {
 router.route('/api/posts/:number/nextPageToken/:nextPageToken')
     .get(function (req, res) {
         var nextPageToken = req.params.nextPageToken;
-        console.log("the next page token is: " + nextPageToken);
-
         getPosts(req, res, nextPageToken);
     });
 
@@ -46,20 +38,34 @@ router.route('/api/posts/:number')
         getPosts(req, res);
     });
 
+var getArchivedPosts = function(req, res, nextPageToken) {
+    var postsToRetrieve = parameterValidation.checkNumber(req, res),
+        year = parameterValidation.checkYear(req, res);
 
+    archivedPostsQuery.get(postsToRetrieve, year, nextPageToken).then(function(result) {
+        res.status(httpStatus.OK).json(result);
+    }).catch(function(errorResult) {
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResult);
+    });
+};
 
-router.route('/api/blogs')
+router.route('/api/archivedposts/:number/year/:year')
     .get(function (req, res) {
-        // var blog = blogReader.getAllBlogInformation(function (blog) {
-        //     res.json(blog);
-        // });
+        getArchivedPosts(req, res);
     });
 
-router.route('/api/posts/:post_id')
+router.route('/api/archivedposts/:number/year/:year/nextPageToken/:nextPageToken')
     .get(function (req, res) {
-        console.log("getting blog" + req.params.blog_id);
-        var blog = blogReader.getBlogById(req.params.blog_id, function (blog) {
+        getArchivedPosts(req, res, req.params.nextPageToken);
+    });
+
+router.route('/api/post/:post_id')
+    .get(function (req, res) {
+        var postId = parameterValidation.checkNumber(req, res, "post_id");
+        getBlogPostById.get(postId).then(function(blog) {
             res.json(blog);
+        }).catch(function(errorResult) {
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResult);
         });
     });
 
