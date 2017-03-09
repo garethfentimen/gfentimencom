@@ -2,6 +2,7 @@
   "name": "gfentimencom",
   "main": "server.js",
   "version": "0.0.1",
+  "engines":{"node":"4.4.6 || 6.10.0"},
   "scripts": {
     "start": "set googleBloggerAPIKey=AIzaSyCuMRBJYqqUyEYceE4zyZahLAjCLipOqWk&& node server.js",
     "test": "node node_modules/jasmine/bin/jasmine.js"
