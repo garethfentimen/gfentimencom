@@ -58,7 +58,6 @@ angular
 			});
 
 			if (filteredBlogList.length === 0) {
-				console.log("idRequested", idRequested);
 				// don't have this blog yet so find it
 				getPostByIdService.get(idRequested).then(function(blog) {
 					
@@ -96,7 +95,7 @@ angular
         }
 
 		$scope.formatShortDate = function (published) {
-            return new Date(published).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+            return new Date(published).toLocaleDateString('en-GB', { month: 'long', day: 'numeric' });
         }
 
 		$scope.getArchivedBlogPromises = function() {
@@ -104,10 +103,18 @@ angular
 		}
 
 		$scope.resolveArchivedBlogPromises = function(blogYear) {
-			$scope.showArchiveLoader = true;
+			if (blogYear.archivedBlogs && blogYear.archivedBlogs.length > 0)
+			{
+				blogYear.archivedBlogs = [];
+				blogYear.showArchivedPosts = false;
+				return;
+			} 
+
+			blogYear.showArchiveLoader = true;
 			archivedBlogPromisesService.resolve(blogYear.year, blogYear.archivedBlogPromise, function (items) {
 				blogYear.archivedBlogs = items;
-				$scope.showArchiveLoader = false;
+				blogYear.showArchiveLoader = false;
+				blogYear.showArchivedPosts = false;
 			});
 		}
 	}]);

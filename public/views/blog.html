@@ -4,7 +4,7 @@
         <div class="col-md-4 pull-right">
 
             <!-- Blog Search Well -->
-            <div class="well">
+            <!--<div class="well">
                 <h4>Blog Search</h4>
                 <div class="input-group">
                     <input type="text" class="form-control">
@@ -14,8 +14,7 @@
                         </button>
                     </span>
                 </div>
-                <!-- /.input-group -->
-            </div>
+            </div>-->
 
             <!-- Blog Categories Well -->
             <!--<div class="well">
@@ -73,14 +72,18 @@
                     </div>
 
                     <div id="archivedBlogs" class="tab-content">
-                        <div ng-show="showArchiveLoader">
-                            loading... please wait
-                        </div>
                         <div ng-repeat="blogYear in blogYears" class="pointer-cursor">
-                            <a href="javascript:void(0)" ng-click="resolveArchivedBlogPromises(blogYear)"><h4>{{blogYear.year}}</h4></a>
-                            <div ng-repeat="archivedBlog in blogYear.archivedBlogs" class="pointer-cursor">
-                                <a ng-click="filterBlogWithIdToTop(archivedBlog.id)">{{archivedBlog.title}}</a>
-                                <div><span>{{formatShortDate(archivedBlog.published)}}</span></div>
+                            <div ng-show="blogYear.showArchiveLoader">
+                                loading... please wait
+                            </div>
+                            <a href="javascript:void(0)" ng-click="resolveArchivedBlogPromises(blogYear)"><h4 class="text-center">{{blogYear.year}}</h4></a>
+                            <div bg-show="blogYear.showArchivedPosts" ng-repeat="archivedBlog in blogYear.archivedBlogs" class="pointer-cursor">
+                                <div class="text-center">
+                                    <span class="small">{{formatShortDate(archivedBlog.published)}}</span>
+                                </div>
+                                <div class="text-center">
+                                    <a ng-click="filterBlogWithIdToTop(archivedBlog.id)">{{archivedBlog.title}}</a>
+                                </div>
                             </div>
                         </div>
                     </div>
