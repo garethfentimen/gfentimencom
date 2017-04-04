@@ -1,6 +1,8 @@
 (function() {
 	"use strict";
 
+	var openCollapsableNavbar = false;
+
 	// For ie9+
 	document.addEventListener('DOMContentLoaded', function(){
 
@@ -17,11 +19,12 @@
 				return;
 			}
 
-			if (navbar.classList.length > 1)
-			{
-				removeClass(navbar, "collapse");
-			} else {
+			if (openCollapsableNavbar) {
+				openCollapsableNavbar = false;
 				addClass(navbar, "collapse");
+			} else {
+				openCollapsableNavbar = true;
+				removeClass(navbar, "collapse");
 			}
 		}
 
