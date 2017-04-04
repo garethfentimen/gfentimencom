@@ -13,8 +13,7 @@
 }
 
 .tab-to-archive-main {
-  /*min-width: 320px;
-  max-width: 800px;*/
+  min-width: 200px;
   margin: 0 auto;
 }
     .tab-to-archive-main input {
