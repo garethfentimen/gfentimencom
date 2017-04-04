@@ -106,7 +106,6 @@ angular
 			if (blogYear.archivedBlogs && blogYear.archivedBlogs.length > 0)
 			{
 				blogYear.archivedBlogs = [];
-				blogYear.showArchivedPosts = false;
 				return;
 			} 
 
@@ -114,7 +113,6 @@ angular
 			archivedBlogPromisesService.resolve(blogYear.year, blogYear.archivedBlogPromise, function (items) {
 				blogYear.archivedBlogs = items;
 				blogYear.showArchiveLoader = false;
-				blogYear.showArchivedPosts = false;
 			});
 		}
 	}]);

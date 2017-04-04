@@ -1,6 +1,5 @@
 <div>
-    <div class="container">
-        <!-- Blog Sidebar Widgets Column -->
+    <!-- Blog Sidebar Widgets Column -->
         <div class="col-md-4 pull-right">
 
             <!-- Blog Search Well -->
@@ -67,7 +66,12 @@
                         
                     <div id="recentBlogs" class="tab-content">
                         <div ng-repeat="blog in blogs" class="pointer-cursor">
-                            <a ng-click="filterBlogWithIdToTop(blog.id)">{{blog.title}}</a>
+                            <div class="text-center">
+                                <span class="small">{{formatDate(blog.published)}}</span>
+                            </div>
+                            <div class="text-center">
+                                <a ng-click="filterBlogWithIdToTop(blog.id)">{{blog.title}}</a>
+                            </div>
                         </div>
                     </div>
 
@@ -77,7 +81,7 @@
                                 loading... please wait
                             </div>
                             <a href="javascript:void(0)" ng-click="resolveArchivedBlogPromises(blogYear)"><h4 class="text-center">{{blogYear.year}}</h4></a>
-                            <div bg-show="blogYear.showArchivedPosts" ng-repeat="archivedBlog in blogYear.archivedBlogs" class="pointer-cursor">
+                            <div ng-repeat="archivedBlog in blogYear.archivedBlogs" class="pointer-cursor">
                                 <div class="text-center">
                                     <span class="small">{{formatShortDate(archivedBlog.published)}}</span>
                                 </div>
@@ -150,15 +154,13 @@
                 </div>
             </div>
             <hr />
-            <div class="col-md-12">
+            <div class="col-md-12 more-container">
                 <div class="col-md-4"></div>
                 <div class="col-md-4 btn btn-primary" ng-click="getNextBlogs()">
                     More..
                 </div>
             </div>
         </div>
-        
-    </div>
 </div>
 <script>
 /**

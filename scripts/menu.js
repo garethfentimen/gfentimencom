@@ -6,7 +6,7 @@
 
 		var url = window.location.href,
 			splitUrl = url.split("/"),
-			location = splitUrl[splitUrl.length-1],
+			location = splitUrl[splitUrl.length-1].replace("#", ""),
 			subLocation = splitUrl[splitUrl.length-2].replace("#", "");
 
 		var collapsedNavButton = document.querySelectorAll(".navbar-toggle");
