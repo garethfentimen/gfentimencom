@@ -9,9 +9,9 @@
 			location = splitUrl[splitUrl.length-1].replace("#", ""),
 			subLocation = splitUrl[splitUrl.length-2].replace("#", "");
 
-		var collapsedNavButton = document.querySelectorAll(".navbar-toggle");
+		var collapsableNavToggle = document.querySelectorAll(".navbar-toggle")[0];
 		
-		collapsedNavButton[0].addEventListener("click", function() {
+		var onClickNavToggle = function() {
 			var navbar = document.querySelectorAll(".navbar-collapse")[0];
 			if (!navbar.classList) {
 				return;
@@ -23,7 +23,10 @@
 			} else {
 				addClass(navbar, "collapse");
 			}
-		});
+		}
+
+		collapsableNavToggle.removeEventListener("click", onClickNavToggle);
+		collapsableNavToggle.addEventListener("click", onClickNavToggle);
 
 		var elements = document.querySelectorAll(".nav li");
 		Array.prototype.forEach.call(elements, function(el){
