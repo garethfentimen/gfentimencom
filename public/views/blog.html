@@ -127,7 +127,7 @@
                 <label for="archiveTab" ng-click="getArchivedBlogPromises()">Archive</label>
                     
                 <div id="recentBlogs" class="tab-content">
-                    <div ng-repeat="blog in blogs" class="pointer-cursor">
+                    <div ng-repeat="blog in blogs | orderBy:'-published'" class="pointer-cursor">
                         <div class="text-center">
                             <span class="small">{{formatDate(blog.published)}}</span>
                         </div>
