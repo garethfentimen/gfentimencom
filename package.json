@@ -3,7 +3,7 @@
   "main": "server.js",
   "version": "0.0.1",
   "engines": {
-    "node": "14.8.0"
+    "node": "12.18.0"
   },
   "scripts": {
     "start": "set googleBloggerAPIKey=AIzaSyCuMRBJYqqUyEYceE4zyZahLAjCLipOqWk&& node server.js",
