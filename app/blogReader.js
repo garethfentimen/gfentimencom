@@ -7,10 +7,6 @@ var blogReader = function () {
 
 blogReader.prototype = function () {
 
-    var findByKeyword = function (keyword, callback) {
-
-    }
-
     var retrieveMostRecentBlog = function (callback) {
         feed('http://garethscode.blogspot.com/feeds/posts/default', function (err, articles) {
             if (err) throw err;
