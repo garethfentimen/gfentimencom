@@ -3,7 +3,11 @@ var app        = express();
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
 var path = require('path');
+var dotenv = require('dotenv');
 
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
+}
 app.engine('hbs', expressHbs(
 	{ 
 		extname:'hbs', 
