@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rimraf ./public/build && gulp",
     "prod": "rimraf ./public/build && gulp prod",
-    "start": "set googleBloggerAPIKey=AIzaSyCuMRBJYqqUyEYceE4zyZahLAjCLipOqWk&& node server.js",
+    "start": "node server.js",
     "test": "node node_modules/jasmine/bin/jasmine.js"
   },
   "dependencies": {
