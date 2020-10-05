@@ -2,80 +2,79 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    eslint = require('gulp-eslint'),
-    minifyCSS = require('gulp-minify-css');;
+    minifyCSS = require('gulp-minify-css');
 
-gulp.task('default', ['dep','app','css','fonts']);
-
-gulp.task('production', ['dep-prod','app-prod','css','fonts']);
-
-gulp.task('lint', function () {
-    return gulp.src(['js/**/*.js'])
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failOnError());
-});
-
-gulp.task('app', ['lint'], function() {
+function app() {
     return gulp.src(['scripts/**/*.js'])
         .pipe(concat('app.js'))
         .pipe(gulp.dest('public/build/scripts'))
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('public/build/scripts'));
-});
+};
 
-gulp.task('app-prod', function() {
+function appProd() {
     return gulp.src(['scripts/**/*.js'])
         .pipe(concat('app.js'))
         .pipe(gulp.dest('public/build/scripts'))
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('public/build/scripts'));
-});
+};
 
-gulp.task('fonts', function() {
-    return gulp.src(['libs/bootstrap-css-only/fonts/*'])
-                .pipe(gulp.dest('public/build/fonts'))
-});
-
-gulp.task('dep', function() {
-    return gulp.src(['libs/lodash/dist/lodash.js','libs/angular/angular.js',
-                                'libs/angular-ui-bootstrap-bower/ui-bootstrap.js',
-                                'libs/angular-route/angular-route.js',
-                                'libs/angular-sanitize/angular-sanitize.js',
-                                'libs/angular-animate/angular-animate.js',
-                                'libs/restangular/dist/restangular.js',
-                                'libs/angular-loading-bar/build/loading-bar.js'])
-        .pipe(concat('dep.min.js'))
-        .pipe(gulp.dest('public/build/scripts'));
-});
-
-gulp.task('dep-prod', function() {
-    return gulp.src(['libs/lodash/lodash.js',
-                                'libs/angular/angular.min.js',		
-                                'libs/angular-ui-bootstrap-bower/ui-bootstrap.min.js',		
-                                'libs/angular-route/angular-route.min.js',		
-                                'libs/angular-sanitize/angular-sanitize.min.js',		
-                                'libs/angular-animate/angular-animate.min.js',		
-                                'libs/restangular/dist/restangular.min.js',
-                                'libs/angular-loading-bar/build/loading-bar.min.js'])
-        .pipe(concat('dep.min.js'))
-        .pipe(gulp.dest('public/build/scripts'));
-});
-
-gulp.task('css', function() {
-    return gulp.src(['libs/angular-loading-bar/build/loading-bar.css',
-                    'libs/bootstrap-css-only/css/bootstrap.css',
+function css() {
+    return gulp.src(['node_modules/angular-loading-bar/build/loading-bar.css',
+                    'node_modules/bootstrap-css-only/css/bootstrap.css',
                     'styles/*.css'])
         .pipe(concat('app.css'))
         .pipe(minifyCSS())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('public/build/styles'));
-});
+};
 
-gulp.task('watch', function() {
-  var watcher = gulp.watch('scripts/app/*.js', ['app']);
-  watcher.on('change', function(event) {
-    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-  });
-});
+function fonts() {
+    return gulp.src('node_modules/bootstrap-css-only/fonts/*')
+                .pipe(gulp.dest('public/build/fonts'))
+}
+
+function dep() {
+    return gulp.src([
+            'node_modules/angular/angular.js',
+            'node_modules/lodash/index.js',
+            'node_modules/angular-animate/angular-animate.js',
+            'node_modules/restangular/dist/restangular.js',
+            'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
+            'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+            'node_modules/angular-route/angular-route.js',
+            'node_modules/angular-sanitize/angular-sanitize.js',
+            'node_modules/angular-loading-bar/build/loading-bar.js'
+        ])
+        .pipe(concat('dep.min.js'))
+        .pipe(gulp.dest('public/build/scripts'));
+};
+
+function depsMin() {
+    return gulp.src([
+            'node_modules/angular/angular.min.js',
+            'node_modules/lodash/index.js',
+            'node_modules/angular-animate/angular-animate.min.js',
+            'node_modules/restangular/dist/restangular.min.js',
+            'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
+            'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+            'node_modules/angular-route/angular-route.min.js',
+            'node_modules/angular-sanitize/angular-sanitize.min.js',
+            'node_modules/angular-loading-bar/build/loading-bar.min.js'
+        ])
+        .pipe(concat('dep.min.js'))
+        .pipe(gulp.dest('public/build/scripts'));
+};
+
+exports.default = gulp.series(dep, app, css, fonts);
+
+exports.prod = gulp.series(depsMin, app, css, fonts);
+
+// gulp.task('watch', function() {
+//   var watcher = gulp.watch('scripts/app/*.js', ['app']);
+//   watcher.on('change', function(event) {
+//     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+//   });
+// });

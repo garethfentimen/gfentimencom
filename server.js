@@ -38,7 +38,7 @@ app.all(/.*/, function(req, res, next) {
     	res.redirect(301, req.protocol + '://www.' + req.header("host"));
     }
   }
-})
+});
 
 app.set('trust proxy', true);
 
@@ -48,7 +48,7 @@ app.use('/', router);
 // Static directories
 app.use('/scripts', express.static(__dirname + '/scripts'));
 app.use('/public', express.static(__dirname + '/public'));
-app.use('/libs', express.static(__dirname + '/libs'));
+app.use('/public/build/img', express.static(__dirname + '/public/img'));
 
 // START THE SERVER
 app.listen(port);

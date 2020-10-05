@@ -22,7 +22,10 @@ module.exports = function(router) {
 
 	router.get('/blog', function(req, res) {
 		var data = standardServerData();
-		data.scripts = ['public/build/scripts/dep.min.js', 'public/build/scripts/app.min.js'];
+		data.scripts = [
+			'public/build/scripts/dep.min.js', 
+			'public/build/scripts/app.min.js'
+		];
 		res.render('blog', data);
 	});
 
