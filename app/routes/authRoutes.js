@@ -3,7 +3,7 @@ const {
     getOAuthRequestToken,
     getOAuthAccessTokenWith,
     oauthGetUserById
-  } = require('../config/oauth')
+  } = require('../config/oauth');
 const data = require('afcm_data');
 
 module.exports = function(router) {
