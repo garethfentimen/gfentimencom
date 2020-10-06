@@ -11,9 +11,13 @@ module.exports = function(router) {
 			year: new Date().getUTCFullYear()
 		}
 	}
+	
+	router.get("/", (req, res) => {
+        res.render('about', standardServerData());
+    });
 
-	router.get('/home', function(req, res) {
-		res.render('home', standardServerData());
+	router.get('/about', function(req, res) {
+		res.render('about', standardServerData());	
 	});
 
 	router.get('/blog', function(req, res) {
@@ -23,14 +27,6 @@ module.exports = function(router) {
 			'public/build/scripts/app.min.js'
 		];
 		res.render('blog', data);
-	});
-
-	router.get('/about', function(req, res) {
-		res.render('about', standardServerData());	
-	});
-
-	router.get('/contact', function(req, res) {
-		res.render('contact', standardServerData("Contact me"));
 	});
 
 	return router;
