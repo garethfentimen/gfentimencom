@@ -7,19 +7,20 @@ const {
 const data = require('afcm_data');
 
 module.exports = function(router) {
-    router.get('/ffo', async (req, res) => {
+    router.get('/ffo_login', async (req, res) => {
         console.log('/ req.cookies', req.cookies)
         if (req.cookies && req.cookies.twitter_screen_name) {
           console.log('/ authorized', req.cookies.twitter_screen_name);
-          return res.render('ffoapp', {
-            title: 'haha', 
+          return res.render('ffo', {
+            title: 'Fantasy Football Owner', 
             year: new Date().getUTCFullYear(),
             name: req.cookies.twitter_screen_name
           });
         }
         return res.render('ffo', {
-          title: 'Fantasy Football Owner', 
-          year: new Date().getUTCFullYear()
+          title: 'Fantasy Football Owner',
+          year: new Date().getUTCFullYear(),
+          name: req.cookies.twitter_screen_name
         });
       });
 
@@ -63,7 +64,7 @@ module.exports = function(router) {
         res.cookie('twitter_screen_name', user.screen_name, { maxAge: 900000, httpOnly: true })
     
         console.log('user succesfully logged in with twitter', user.screen_name);
-        req.session.save(() => res.redirect('/'));
+        req.session.save(() => res.redirect('/ffo'));
       })
 
     return router;
