@@ -17,7 +17,7 @@ module.exports = function(router) {
             name: req.cookies.twitter_screen_name
           });
         }
-        return res.render('ffo', {
+        return res.render('login', {
           title: 'Fantasy Football Owner',
           year: new Date().getUTCFullYear(),
           name: req.cookies.twitter_screen_name
