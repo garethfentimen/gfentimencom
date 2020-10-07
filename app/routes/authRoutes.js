@@ -60,6 +60,7 @@ module.exports = function(router) {
         const { user_id: userId /*, screen_name */ } = results
         const user = await oauthGetUserById(userId, { oauthAccessToken, oauthAccessTokenSecret })
     
+        console.log(user);
         req.session.twitter_screen_name = user.screen_name
         res.cookie('twitter_screen_name', user.screen_name, { maxAge: 900000, httpOnly: true })
     
