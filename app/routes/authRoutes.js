@@ -3,7 +3,6 @@ const {
     getOAuthAccessTokenWith,
     oauthGetUserById
   } = require('../config/oauth');
-const data = require('afcm_data');
 
 module.exports = function(router) {
     router.get('/ffo', async (req, res) => {
