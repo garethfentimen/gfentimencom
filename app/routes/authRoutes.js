@@ -3,23 +3,20 @@ const {
     getOAuthAccessTokenWith,
     oauthGetUserById
   } = require('../config/oauth');
+const path = require('path');
 
 module.exports = function(router) {
     router.get('/ffo', async (req, res) => {
       console.log('/ req.cookies', req.cookies)
-      if (req.cookies && req.cookies.twitter_screen_name) {
+      //if (req.cookies && req.cookies.twitter_screen_name) {
         console.log('/ authorized', req.cookies.twitter_screen_name);
-        return res.render('ffo', {
-          title: 'Fantasy Football Owner', 
-          year: new Date().getUTCFullYear(),
-          name: req.cookies.twitter_screen_name
-        });
-      }
-      return res.render('login', {
-        title: 'Fantasy Football Owner',
-        year: new Date().getUTCFullYear(),
-        name: req.cookies.twitter_screen_name
-      });
+        return res.sendFile(path.join(__dirname + '../../../ffo/index.html'));
+      // }
+      // return res.render('login', {
+      //   title: 'Fantasy Football Owner',
+      //   year: new Date().getUTCFullYear(),
+      //   name: req.cookies.twitter_screen_name
+      // });
     });
 
     router.get('/twitter/logout', logout);
@@ -60,7 +57,9 @@ module.exports = function(router) {
     
         console.log(user);
         req.session.twitter_screen_name = user.screen_name
-        res.cookie('twitter_screen_name', user.screen_name, { maxAge: 900000, httpOnly: true })
+        res.cookie('twitter_screen_name', user.screen_name, { maxAge: 900000, httpOnly: true });
+
+        res.cookie('userName', user.name, { maxAge: 900000 });
     
         console.log('user succesfully logged in with twitter', user.screen_name);
         req.session.save(() => res.redirect('/ffo'));

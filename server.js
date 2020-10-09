@@ -67,7 +67,8 @@ async function main () {
   // Static directories
   app.use('/scripts', express.static(__dirname + '/scripts'));
   app.use('/public', express.static(__dirname + '/public'));
-  app.use('/public/build/img', express.static(__dirname + '/public/img'));
+  
+  app.use(express.static(__dirname + '/ffo'));
 
   // START THE SERVER
   app.listen(port, () => console.log(`Server is running on port ${port}!`));
