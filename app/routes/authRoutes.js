@@ -4,19 +4,21 @@ const {
     oauthGetUserById
   } = require('../config/oauth');
 const path = require('path');
+const getToken = require('../queries/auth/getToken');
 
 module.exports = function(router) {
     router.get('/ffo', async (req, res) => {
-      console.log('/ req.cookies', req.cookies)
-      //if (req.cookies && req.cookies.twitter_screen_name) {
-        console.log('/ authorized', req.cookies.twitter_screen_name);
-        return res.sendFile(path.join(__dirname + '../../../ffo/index.html'));
-      // }
-      // return res.render('login', {
-      //   title: 'Fantasy Football Owner',
-      //   year: new Date().getUTCFullYear(),
-      //   name: req.cookies.twitter_screen_name
-      // });
+      console.log('/ req.cookies', req.cookies);
+      if (req.cookies && req.cookies.token) {
+        console.log('/ authorized', req.cookies.token);
+        return res.sendFile(path.join(__dirname + '../../../ffo/index.html'), { headers: { test: "test1" }});
+      }
+      else {
+        return res.render('login', {
+          title: 'Fantasy Football Owner',
+          year: new Date().getUTCFullYear()
+        });
+      }
     });
 
     router.get('/twitter/logout', logout);
@@ -53,15 +55,14 @@ module.exports = function(router) {
         req.session.oauthAccessToken = oauthAccessToken
     
         const { user_id: userId /*, screen_name */ } = results
-        const user = await oauthGetUserById(userId, { oauthAccessToken, oauthAccessTokenSecret })
+        const user = await oauthGetUserById(userId, { oauthAccessToken, oauthAccessTokenSecret });
     
-        console.log(user);
-        req.session.twitter_screen_name = user.screen_name
-        res.cookie('twitter_screen_name', user.screen_name, { maxAge: 900000, httpOnly: true });
+        console.log('user succesfully logged in with twitter', user);
 
-        res.cookie('userName', user.name, { maxAge: 900000 });
-    
-        console.log('user succesfully logged in with twitter', user.screen_name);
+        // need the JWT
+        const token = getToken(user);
+        res.cookie('token', token, { maxAge: 86400 * 2 });
+
         req.session.save(() => res.redirect('/ffo'));
       })
 
