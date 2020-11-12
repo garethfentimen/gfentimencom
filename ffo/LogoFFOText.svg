@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="240px"
+   height="200px"
+   viewBox="0 0 240 200"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="LogoFFOText.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <defs
+     id="defs3165" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="239.31519"
+     inkscape:cy="314.9562"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1624"
+     inkscape:window-height="997"
+     inkscape:window-x="38"
+     inkscape:window-y="38"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata3168">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:49.8017px;line-height:1.25;font-family:'Agency FB';-inkscape-font-specification:'Agency FB, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:1;fill:#36c621;fill-opacity:1;stroke:#002e6b;stroke-width:0.933778;stroke-opacity:0.266393"
+       x="41.749966"
+       y="50.118641"
+       id="text2952-6-3-2-2"
+       transform="matrix(1.0649963,0.00404342,0.05274591,0.93917066,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2950-7-6-5-1"
+         x="41.749966"
+         y="50.118641"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:49.8017px;font-family:'Agency FB';-inkscape-font-specification:'Agency FB, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#36c621;fill-opacity:1;stroke:#002e6b;stroke-width:0.933778;stroke-opacity:0.266393">Fantasy</tspan><tspan
+         sodipodi:role="line"
+         x="41.749966"
+         y="112.37077"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:49.8017px;font-family:'Agency FB';-inkscape-font-specification:'Agency FB, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#36c621;fill-opacity:1;stroke:#002e6b;stroke-width:0.933778;stroke-opacity:0.266393"
+         id="tspan2954-9-9-7-1">Football</tspan></text>
+    <path
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:0.968334px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 78.505456,134.83358 77.230734,-0.0438"
+       id="path3098-3-3-2-7"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:49.8017px;line-height:1.25;font-family:'Agency FB';-inkscape-font-specification:'Agency FB, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:1;fill:#36c621;fill-opacity:1;stroke:#002e6b;stroke-width:0.933778;stroke-opacity:0.266393"
+       x="52.331448"
+       y="188.27863"
+       id="text2952-6-3-8-68-6"
+       transform="matrix(1.064957,0.01000024,0.04749198,0.93945102,0,0)"><tspan
+         sodipodi:role="line"
+         x="52.331448"
+         y="188.27863"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:49.8017px;font-family:'Agency FB';-inkscape-font-specification:'Agency FB, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#36c621;fill-opacity:1;stroke:#002e6b;stroke-width:0.933778;stroke-opacity:0.266393"
+         id="tspan2954-9-9-4-1-4">Owner</tspan></text>
+    <path
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:0.999999px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 98.985235,133.2633 0.0477,-16.03627 32.893125,0.0302 0.0782,15.72034"
+       id="path3347-6-1" />
+  </g>
+</svg>
