@@ -54,17 +54,16 @@ module.exports = function(router) {
         const { oauthAccessToken, oauthAccessTokenSecret, results } = await getOAuthAccessTokenWith({ oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
         req.session.oauthAccessToken = oauthAccessToken
     
-        console.log('direct from twitter', results);
-        const { screen_name, id, name, location, description, followers_count } = results;
-        const user = await oauthGetUserById(id, { oauthAccessToken, oauthAccessTokenSecret });
-    
+        const { screen_name, user_id } = results;
+        const user = await oauthGetUserById(user_id, { oauthAccessToken, oauthAccessTokenSecret });
+        
         const userToSend = { 
-          userId: id,
+          userId: user_id,
           screenName: screen_name,
-          name,
-          location,
-          description,
-          followers: followers_count
+          name: user.name,
+          location: user.location,
+          description: user.description,
+          followers: user.followers_count
         };
         console.log('user succesfully logged in - sending this info: ', userToSend);
 
