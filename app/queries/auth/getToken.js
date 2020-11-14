@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 
 module.exports = async (user) => {
+        try {
             const response = 
                 await fetch(process.env.GRAPH_SERVER + `/api/auth/token`,
                 {
@@ -11,6 +12,10 @@ module.exports = async (user) => {
                     },
                     body: JSON.stringify(user)
                 });
-            const json = await response.json();
-            return json.token;
+                const json = await response.json();
+                console.log(json);
+                return json.token;
+            } catch(error) {
+                console.error('calling for auth on afcm backend: ', error);
+            }   
         };
