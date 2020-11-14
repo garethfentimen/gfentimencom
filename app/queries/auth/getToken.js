@@ -1,6 +1,4 @@
-module.exports = (function() {
-    return {
-        getToken: async (user) => {
+module.exports = async (user) => {
             const result = 
                 await fetch(process.env.GRAPH_SERVER + `/api/auth/token`,
                 {
@@ -12,6 +10,4 @@ module.exports = (function() {
                     body: JSON.stringify(user)
                 });
             return result.token;
-        }
-    };
-})();
+        };
