@@ -31,7 +31,7 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.2",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.19",
     "mock-require": "^1.3.0",
     "node-fetch": "^2.6.1",
     "oauth": "^0.9.15",
