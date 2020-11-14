@@ -54,21 +54,22 @@ module.exports = function(router) {
         const { oauthAccessToken, oauthAccessTokenSecret, results } = await getOAuthAccessTokenWith({ oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
         req.session.oauthAccessToken = oauthAccessToken
     
-        const { user_id: userId, screen_name, id, name, location, description, followers_count } = results
-        const user = await oauthGetUserById(userId, { oauthAccessToken, oauthAccessTokenSecret });
+        console.log('direct from twitter', results);
+        const { screen_name, id, name, location, description, followers_count } = results;
+        const user = await oauthGetUserById(id, { oauthAccessToken, oauthAccessTokenSecret });
     
-        console.log('user succesfully logged in with twitter', { 
-          userId: user_id,
-          twitterId: id,
+        const userToSend = { 
+          userId: id,
           screenName: screen_name,
           name,
           location,
           description,
           followers: followers_count
-        });
+        };
+        console.log('user succesfully logged in - sending this info: ', userToSend);
 
         // need the JWT
-        const token = getToken(user);
+        const token = getToken(userToSend);
         res.cookie('token', token, { maxAge: 86400 * 2 });
 
         req.session.save(() => res.redirect('/ffo'));
