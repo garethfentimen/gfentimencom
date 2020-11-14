@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 module.exports = async (user) => {
-            const result = 
+            const response = 
                 await fetch(process.env.GRAPH_SERVER + `/api/auth/token`,
                 {
                     method: 'POST',
@@ -11,6 +11,6 @@ module.exports = async (user) => {
                     },
                     body: JSON.stringify(user)
                 });
-            const json = await response.json(result);
+            const json = await response.json();
             return json.token;
         };
