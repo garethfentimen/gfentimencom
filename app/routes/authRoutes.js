@@ -68,7 +68,7 @@ module.exports = function(router) {
         console.log('user succesfully logged in - sending this info: ', userToSend);
 
         // need the JWT
-        const token = getToken(userToSend);
+        const token = await getToken(userToSend);
         res.cookie('token', token, { maxAge: 86400 * 2 });
 
         req.session.save(() => res.redirect('/ffo'));
