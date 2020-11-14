@@ -11,5 +11,6 @@ module.exports = async (user) => {
                     },
                     body: JSON.stringify(user)
                 });
-            return result.token;
+            const json = await response.json(result);
+            return json.token;
         };
