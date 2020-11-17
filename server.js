@@ -19,8 +19,8 @@ async function main () {
 
   app.set('view engine', 'hbs');
 
-  var favicon = require('serve-favicon');
-  app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+  // var favicon = require('serve-favicon');
+  // app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
   // configure app to use bodyParser()
   // this will let us get the data from a POST (jsonifying)

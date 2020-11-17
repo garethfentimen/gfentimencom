@@ -8,7 +8,8 @@ module.exports = function(router) {
 
 		return {
 			title: aTitle, 
-			year: new Date().getUTCFullYear()
+			year: new Date().getUTCFullYear(),
+			notFfo: true
 		}
 	}
 	
