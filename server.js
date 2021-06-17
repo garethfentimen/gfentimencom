@@ -69,11 +69,11 @@ async function main () {
   app.use('/public', express.static(__dirname + '/public'));
 
   //define the react-application here
-  app.use('/ffo', express.static(path.resolve(__dirname, `/public`))); 
+  app.use('/ffo', express.static(path.resolve(__dirname, `/ffo`))); 
   //optionally one can add some route handler to protect this resource?
 
   app.get('/ffo/*', (req,res) => { //this is required to support any client side routing written in react.
-    res.sendFile(path.join(__dirname, '../ffo', 'index.html'));
+    res.sendFile(path.join(__dirname, '/ffo', 'index.html'));
   });
 
   // START THE SERVER
