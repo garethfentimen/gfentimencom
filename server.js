@@ -52,7 +52,7 @@ async function main () {
     } else {
       if (req.hostname.match(/^localhost*/i))
       {
-      next();
+        next();
       } else {
         res.redirect(301, req.protocol + '://www.' + req.header("host"));
       }
@@ -67,8 +67,14 @@ async function main () {
   // Static directories
   app.use('/scripts', express.static(__dirname + '/scripts'));
   app.use('/public', express.static(__dirname + '/public'));
-  
-  app.use(express.static(__dirname + '/ffo'));
+
+  //define the react-application here
+  app.use('/ffo', express.static(path.resolve(__dirname, `/public`))) 
+  //optionally one can add some route handler to protect this resource?
+
+  app.get('/ffo/*', (req,res) => { //this is required to support any client side routing written in react.
+    res.sendFile(path.join(__dirname, '../../public', 'index.html'))
+  });
 
   // START THE SERVER
   app.listen(port, () => console.log(`Server is running on port ${port}!`));
