@@ -73,7 +73,7 @@ async function main () {
   //optionally one can add some route handler to protect this resource?
 
   app.get('/ffo/*', (req,res) => { //this is required to support any client side routing written in react.
-    res.sendFile(path.join(__dirname, '../../ffo', 'index.html'))
+    res.sendFile(path.join(__dirname, '../ffo', 'index.html'))
   });
 
   // START THE SERVER
