@@ -1,4 +1,4 @@
-var express    = require('express'); 		
+var express    = require('express');	
 var app        = express();
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
@@ -39,9 +39,10 @@ async function main () {
 
   var port = process.env.PORT || 3000; 		// set our port
 
-  // API routes
-  var router = require('./app/routes/blogApiRoutes');
-  router = require("./app/routes/labelApiRoutes.js")(router);
+  // routes
+  var router = express.Router();
+  router = require('./app/routes/blogApiRoutes')(router);
+  // router = require("./app/routes/labelApiRoutes.js")(router);
   router = require("./app/routes/appRoutes.js")(router);
   router = require("./app/routes/authRoutes.js")(router);
 
@@ -61,16 +62,16 @@ async function main () {
 
   app.set('trust proxy', true);
 
+  router.get('/ffo/*', (req, res) => { //this is required to support any client side routing written in react.
+    res.sendFile(path.join(__dirname + '/public/client/index.html'));
+  });
+
   // register all our routes
   app.use('/', router);
 
   // Static directories
   app.use('/scripts', express.static(__dirname + '/scripts'));
   app.use('/public', express.static(__dirname + '/public'));
-
-  //define the react-application here
-  app.use(express.static(path.resolve(__dirname, `/ffo`))); 
-  //optionally one can add some route handler to protect this resource?
 
   // START THE SERVER
   app.listen(port, () => console.log(`Server is running on port ${port}!`));
