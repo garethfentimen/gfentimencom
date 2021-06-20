@@ -60,6 +60,8 @@ async function main () {
     }
   });
 
+  // commit again 
+
   app.set('trust proxy', true);
 
   router.get('/ffo/*', (req, res) => { //this is required to support any client side routing written in react.
