@@ -11,7 +11,7 @@ module.exports = function(router) {
       console.log('/ req.cookies', req.cookies);
       if (req.cookies && req.cookies.token) {
         console.log('/ authorized', req.cookies.token);
-        return res.sendFile(path.join(__dirname + '../../../ffo/index.html'));
+        return res.sendFile(path.join(__dirname + '../../../public/client/index.html'));
       }
       else {
         return res.render('login', {
@@ -19,10 +19,6 @@ module.exports = function(router) {
           year: new Date().getUTCFullYear()
         });
       }
-    });
-
-    router.get('/ffo/*', (req,res) => { //this is required to support any client side routing written in react.
-      res.sendFile(path.join(__dirname + '../../../ffo/index.html'));
     });
 
     router.get('/twitter/logout', logout);
