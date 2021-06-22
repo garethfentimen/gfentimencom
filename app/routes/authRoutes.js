@@ -9,7 +9,7 @@ const getToken = require('../queries/auth/getToken');
 module.exports = function(router) {
     router.get('/ffo', async (req, res) => {
       console.log('/ req.cookies', req.cookies);
-      if (req.cookies && req.cookies.token) {
+      if ((req.cookies && req.cookies.token) || process.env.NODE_ENV !== "production") {
         console.log('/ authorized', req.cookies.token);
         return res.sendFile(path.join(__dirname + '../../../public/client/index.html'));
       }
