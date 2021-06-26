@@ -46,6 +46,7 @@ module.exports = function(router) {
         }).catch(function(errorResult) {
             res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResult);
         });
+        
     };
 
     router.route('/api/archivedposts/:number/year/:year')
